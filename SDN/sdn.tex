@@ -1,0 +1,104 @@
+\documentclass[solution,addpoints,12pt]{exam}
+\printanswers
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\begin{document}
+Coursera : Nick Feamster.\\
+Network protocol layers :\\
+Application layer, Transport layer : end to end and reliable,
+Network layer : routing , congestion control, addressing and Quality of service
+Link layer : link by link basis, Physical layer.\\
+
+Components of a router :\\
+\begin{itemize}
+\item Line cards.\\
+\begin{itemize}
+\item
+Each line card is for one particular file layer technology.
+Based in transmitter/Recv).
+\item
+Line cards these days have CPU and a memory dedicated to it.
+\item
+It also takes care of forwarding. A packet based on the input
+header and route it to the next router on the route to the
+destination router. From the input port which output port it goes out
+in this router. Based on forwarding table it does all these.
+A simple forwarding table will have an input port mapped to the output port
+based on the header information. Address has two parts : network address
+and host address. Number of possible networks is the bound for the number
+of entries in the forwarding table.
+\end{itemize}
+\item Control Card : Also has CPU and memory. Handles all control packets.
+Computes and loads the forwarding table.
+\item Management Card : Also has CPU and memory. Handles all monitoring
+packets.
+\item Switch fabric connects the different cards.
+\end{itemize}
+
+There are some packets which could be control packet like non data
+packet which is for routing protocols like OSPF. These are called control
+packets. RIP, REP and ISIS are other routing protocols. An autonomous system
+is the set of systems under one name (like reliance's systems under
+reliance name). BGP is the border gateway protocol is like sendin packt
+from one cluster to the next cluster. RIP is the protocol for internal
+transfer.
+
+We have various configurations possible which can be configured using SMP.\\
+Some are simply forwarded like data packets. The other are used to make
+some changes to the memory of the router.
+
+Data plane or the forwarding plane, control plane and forwarding plane.\\
+Routers do look at TCP header.\\
+
+Innovations inside the network were growing at a slow rate.\\
+Physical layers has been growing over the years. Wifi has
+grown from 2 Mbps to about 1 Gbps. Cellular receives
+about 5Mbps. Like from 2g to 3g to 4g the speeds increase.
+The base state for optic networks was 155 Mbps. It has gone
+upto 100 Gbps per channel. Hence it has gone to about 10 Tbps
+on a link.\\
+
+Application also has proceeded nicely. Changing things easily
+is possible.\\
+FIND : Future Intermediate Directions.\\
+NGI : Next Generation of Internet.\\
+Clean State Internet.\\
+Goals :\\
+\begin{itemize}
+\item Enable faster innovation in a production/live network.
+People who want the above are vendors or manufactureres of network
+equipment like cisco, juniper, tejas, huawei. The others who want
+these are Internet Service Providers. They take the equipment
+from the vendors and give internet service. The ISP has to give
+some service agreement. If they want to add a new service they
+have to go to the equipment vendor and ask for it. Based on something
+already existing, if an innovation is happening, then it must be done quickly.
+\item Network element programmability : An administrator should
+be able to write high level programs to modify the network element
+behaviour.
+\item Given a large scale network, formally verifying connectivity between two
+other nodes and such.\\
+\item How to eliminate proliferation of middle boxes.\\
+Middle box is a hardware sitting in the network between routers,
+basically anywhere between soure and destination.\\
+They enable :
+\begin{itemize}
+\item firewall.
+\item proxies / caching.
+\item NAT(Network Address Translation) / Gateway.
+\item Load balancing.
+\item Intrusion detection or prevention.
+\item WAN optimizers/Application accelerators.
+\item This might have the power to send acks, etc to the nodes in order
+to change the parameters like recevier window size of the nodes.
+\end{itemize}
+\end{itemize}
+The players involved are :\\
+Internet service providers.\\
+Enterprise nets are private networks like IIT, University of texas, etc.\\
+Data center networks basically have racks of servers. They have almost
+2 million IP addresses.\\
+Content delivery network.\\
+
+
+\end{document}
