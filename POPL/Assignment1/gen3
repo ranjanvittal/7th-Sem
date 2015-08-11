@@ -1,0 +1,35 @@
+1,4d0
+< BNF for microjava.jj
+< 
+< NON-TERMINALS
+< 
+6c2
+< MainClass   ::= "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" "new" Identifier "(" ")" "." Identifier "(" ( ExpressionList )? ")" ";" "}" "}"
+---
+> MainClass   ::= "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" PrintStatement "}" "}"
+12c8
+< MethodDeclaration   ::= "public" "void" Identifier "(" ( FormalParameterList )? ")" "{" ( VarDeclaration )* ( Statement )* "}"
+---
+> MethodDeclaration   ::= "public" Type Identifier "(" ( FormalParameterList )? ")" "{" ( VarDeclaration )* ( Statement )* "return" Expression ";" "}"
+29d24
+< |   MessageSendStatement
+31c26
+< AssignmentStatement ::= VarRef "=" Expression ";"
+---
+> AssignmentStatement ::= Identifier "=" Expression ";"
+36d30
+< MessageSendStatement    ::= Identifier "." Identifier "(" ( ExpressionList )? ")" ";"
+42a37,38
+> |   ArrayLength
+> |   MessageSend
+49a46,47
+> ArrayLength ::= PrimaryExpression "." "length"
+> MessageSend ::= PrimaryExpression "." Identifier "(" ( ExpressionList )? ")"
+55c53
+< |   VarRef
+---
+> |   Identifier
+70,72d67
+< VarRef  ::= DotExpression
+< |   Identifier
+< DotExpression   ::= Identifier "." Identifier

@@ -100,5 +100,113 @@ Data center networks basically have racks of servers. They have almost
 2 million IP addresses.\\
 Content delivery network.\\
 
+Network virtualization :\\
+Jon turner made effort to incorporate network virtualization.
+Host OS over hardware was the initial stage. VMWare
+added a virtual box over Host OS. Now we can have linux running
+over windows and such. For cloud computing VMWare is necessary.
+(Using different versions over the underlying model of old machines)\\
+We can start assigning cores to different versions. Slices
+of the computer infrastructure is the one discussed above.\\
 
+The slices of network Infrastructure is network virtualization.
+Each slice can run its own protocol stack. PlanetLAB was the
+first testbed which can be used for wide area testing.
+Now there are GENI testbeds.\\
+
+Network function Virtualization (NFV) will be discussed later.\\
+
+Read about : Active networking, FORCES(IETF), Routing Control Protocol(RCP),
+Ethane project in stanford and write a one page report on each of them.\\
+
+Notions of SDN :\\
+Separation of control plane and data plane :
+Router's internals include :\\
+\begin{itemize}
+\item Communications hardware
+\item CPU, Memory, Buffers, etc
+\item Switching fabric
+\item Router operating systems : Cisco's (IOS), JunOS.
+Open Networking Linux is another OS.
+\item Features :
+\begin{itemize}
+\item OSPF
+\item RIP
+\item daemon
+\item BGP
+\end{itemize}
+\end{itemize}
+The above are Vetically Integrated Closed Proprietory System.\\
+The control plane is tightly interconnected with the data
+plane in the above.\\
+
+Example of network virtualization:\\
+An user wants a different set of protocols for the system.
+The routers have hardwares for these. Now a user must be
+able to run the protocols which they want to run on.
+Different operators working on the same underlying interface.
+
+SDN wants better. The integrated part was split into two
+parts as control and data plane.\\
+The idea was to use the switch/router only implements the data plane
+(ie) the packet forwarding aspects only.\\
+
+Forward based on :\\
+\begin{itemize}
+\item
+Destination address only are
+split into class based IP addressing(Fixed length prefix
+and has an exact matching to the incoming address)
+and the other is the classless IP addressing(longest matching
+prefix). Class based is more like a cluster while classless
+is not so.
+\item
+Based on several fields in the IP. This is actually
+breaking the IP stack rule. Based on
+<Src IP, Dest IP, Src Port, Dest Port, Protocol>. This has 5 fields.
+Therefore the routing becomes extremely complicated due to all these.
+\item
+The following is called the policy based routing which has about 40 fields :\\
+Forwarding data plane has a forwarding table. There may be various
+fields in the packet header. The packet has MAC, IP, TCP headers
+which in themselves have several fields ending up in about 40 fields.
+Based on the fields, we have action and auxillary actions. Because of these
+the forwarding table might become exponential. Hence we have some kind
+of aggregation for every field. There will always be a default rule.
+This exists now. A given packet can match multiple entries in the forwarding
+table.\\
+100 Gbps. TCP : 40 byte minimum packet size (TCP + IP). 40 bytes and 1500
+bytes are where the spikes of statistics of data sent.\\
+Time available to process a packet in the
+forwarding table = (40*8)/(100 Gbps) = 3.2 ns. Therefore the processing time
+should be less than this for the packets not to queue up.\\
+
+The same packet might get different treatment at different routers.
+\end{itemize}
+Telephone networks :\\
+The paths have been done via circuit switching. The controller
+decides these paths. The controller has the global view. This one is
+centralized routing. OSPF is distributed routing as there is
+no one centralized node. Hence the distributed one is where each
+router has the ability to route on its own without the
+help of the centralized node.\\
+Current challenge is to have some controllers but not one like
+centralized controller.\\
+
+SDN model : Switch or router only implements the data plane functionality.\\
+The control plane line card is to be removed from the router.\\
+A well defined interface to the control plane. The controller
+is now being implemented as a software. Therefore this is moving towards
+programmability. The interface between control and data plane must be
+open and standardized. Only if that happens the communication between
+different companies would be easier. The controller is central for
+some routers and it is not specific to a router as before. Example for
+open interface is open flow. This is called south bound interface.\\
+
+East west is between servers traffic and North south is between the server
+and the internet in data center terms.\\
+
+The applications that talk to the controller software is called the
+north bound interface. Different south bound interfaces are NOX,
+POX, Beacon, Floodlight, OpenDayLight, ONOS.
 \end{document}
