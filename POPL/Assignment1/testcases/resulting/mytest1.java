@@ -19,7 +19,9 @@ int micro_first;
 public void micro_my_first(extra_int return_value) {
 return_value.first = micro_first;
 }
-public void micro_assign_int(int micro_val, extra_boolean return_value) {
+public void micro_assign_int(int variable4, extra_boolean return_value) {
+int micro_val;
+micro_val = variable4;
 micro_first = micro_val;
 return_value.first = true;
 }
@@ -28,47 +30,49 @@ class micro_MyStarter {
 public void micro_start(extra_int return_value) {
 micro_MyInt micro_a;
 boolean micro_b;
-micro_MyInt variable4;
-extra_boolean variable5;
-boolean variable6;
-micro_MyFac variable7;
-extra_int variable8;
-int variable9;
+micro_MyInt variable5;
+extra_boolean variable6;
+boolean variable7;
+micro_MyFac variable8;
+extra_int variable9;
+int variable10;
 micro_a = new micro_MyInt();
-variable4 = micro_a;
-variable5 = new extra_boolean();
-variable4.micro_assign_int(10, variable5);
-variable6 = variable5.first;
-micro_b = variable6;
-variable7 = new micro_MyFac();
-variable8 = new extra_int();
-variable7.micro_ComputeFac(micro_a, variable8);
-variable9 = variable8.first;
-return_value.first = variable9;
+variable5 = micro_a;
+variable6 = new extra_boolean();
+variable5.micro_assign_int(10, variable6);
+variable7 = variable6.first;
+micro_b = variable7;
+variable8 = new micro_MyFac();
+variable9 = new extra_int();
+variable8.micro_ComputeFac(micro_a, variable9);
+variable10 = variable9.first;
+return_value.first = variable10;
 }
 }
 class micro_MyFac {
-public void micro_ComputeFac(micro_MyInt micro_num, extra_int return_value) {
+public void micro_ComputeFac(micro_MyInt variable11, extra_int return_value) {
+micro_MyInt micro_num;
 int micro_num_aux;
 int micro_accumulator;
-micro_MyInt variable10;
-extra_int variable11;
-int variable12;
+micro_MyInt variable12;
+extra_int variable13;
+int variable14;
+micro_num = variable11;
 micro_accumulator = 1;
 micro_num_aux = 1;
-variable10 = micro_num;
-variable11 = new extra_int();
-variable10.micro_my_first(variable11);
-variable12 = variable11.first;
-while(micro_num_aux<((variable12)+1)){
+variable12 = micro_num;
+variable13 = new extra_int();
+variable12.micro_my_first(variable13);
+variable14 = variable13.first;
+while(micro_num_aux<((variable14)+1)){
 {
 micro_accumulator = (micro_accumulator*micro_num_aux);
 micro_num_aux = micro_num_aux+1;
 }
-variable10 = micro_num;
-variable11 = new extra_int();
-variable10.micro_my_first(variable11);
-variable12 = variable11.first;
+variable12 = micro_num;
+variable13 = new extra_int();
+variable12.micro_my_first(variable13);
+variable14 = variable13.first;
 }
 return_value.first = micro_accumulator;
 }

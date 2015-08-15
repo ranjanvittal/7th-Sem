@@ -2,7 +2,7 @@ for i in testcases/*.java;
 do
 #echo $i;
         j=`echo $i | sed 's/\([^\/]*\/\)\(.*\)/\2/'`;
-        java Main < $i > testcases/resulting/`echo $j`;
+        java P1 < $i > testcases/resulting/`echo $j`;
 done
 cd testcases;
 for i in *.java;
@@ -15,6 +15,7 @@ cd resulting;
 for i in *.java;
 do
         j=`echo $i | sed 's/\([^\/]*\/\)\(.*\)/\2/'`;
+
         javac $i;
         #echo $j;
 done
@@ -39,6 +40,12 @@ do
         fi
         rm tmpoutput tmpoutput2
 done
+cd GrammarTester;
+for i in ../resulting/*.java;
+do
+        java Main < $i;
+done
+cd ..;
 rm *.class;
 cd resulting;
 rm *.class;

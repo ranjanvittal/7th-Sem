@@ -15,20 +15,22 @@ System.out.println(variable3);
 }
 }
 class micro_Fac {
-public void micro_ComputeFac(int micro_num, extra_int return_value) {
+public void micro_ComputeFac(int variable4, extra_int return_value) {
+int micro_num;
 int micro_num_aux;
-micro_Fac variable4;
-extra_int variable5;
-int variable6;
+micro_Fac variable5;
+extra_int variable6;
+int variable7;
+micro_num = variable4;
 if(micro_num<1){
 micro_num_aux = 1;
 }
 else {
-variable4 = this;
-variable5 = new extra_int();
-variable4.micro_ComputeFac(micro_num-1, variable5);
-variable6 = variable5.first;
-micro_num_aux = micro_num*(variable6);
+variable5 = this;
+variable6 = new extra_int();
+variable5.micro_ComputeFac(micro_num-1, variable6);
+variable7 = variable6.first;
+micro_num_aux = micro_num*(variable7);
 }
 return_value.first = micro_num_aux;
 }

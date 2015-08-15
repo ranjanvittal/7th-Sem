@@ -17,41 +17,43 @@ System.out.println(variable3);
 class micro_BBS {
 int[] micro_number;
 int micro_size;
-public void micro_Start(int micro_sz, extra_int return_value) {
+public void micro_Start(int variable4, extra_int return_value) {
+int micro_sz;
 int micro_aux01;
-micro_BBS variable4;
-extra_int variable5;
-int variable6;
-micro_BBS variable7;
-extra_int variable8;
-int variable9;
-micro_BBS variable10;
-extra_int variable11;
-int variable12;
-micro_BBS variable13;
-extra_int variable14;
-int variable15;
-variable4 = this;
-variable5 = new extra_int();
-variable4.micro_Init(micro_sz, variable5);
-variable6 = variable5.first;
-micro_aux01 = variable6;
-variable7 = this;
-variable8 = new extra_int();
-variable7.micro_Print(variable8);
-variable9 = variable8.first;
-micro_aux01 = variable9;
+micro_BBS variable5;
+extra_int variable6;
+int variable7;
+micro_BBS variable8;
+extra_int variable9;
+int variable10;
+micro_BBS variable11;
+extra_int variable12;
+int variable13;
+micro_BBS variable14;
+extra_int variable15;
+int variable16;
+micro_sz = variable4;
+variable5 = this;
+variable6 = new extra_int();
+variable5.micro_Init(micro_sz, variable6);
+variable7 = variable6.first;
+micro_aux01 = variable7;
+variable8 = this;
+variable9 = new extra_int();
+variable8.micro_Print(variable9);
+variable10 = variable9.first;
+micro_aux01 = variable10;
 System.out.println(99999);
-variable10 = this;
-variable11 = new extra_int();
-variable10.micro_Sort(variable11);
-variable12 = variable11.first;
-micro_aux01 = variable12;
-variable13 = this;
-variable14 = new extra_int();
-variable13.micro_Print(variable14);
-variable15 = variable14.first;
-micro_aux01 = variable15;
+variable11 = this;
+variable12 = new extra_int();
+variable11.micro_Sort(variable12);
+variable13 = variable12.first;
+micro_aux01 = variable13;
+variable14 = this;
+variable15 = new extra_int();
+variable14.micro_Print(variable15);
+variable16 = variable15.first;
+micro_aux01 = variable16;
 return_value.first = 0;
 }
 public void micro_Sort(extra_int return_value) {
@@ -104,7 +106,9 @@ micro_j = micro_j+1;
 }
 return_value.first = 0;
 }
-public void micro_Init(int micro_sz, extra_int return_value) {
+public void micro_Init(int variable17, extra_int return_value) {
+int micro_sz;
+micro_sz = variable17;
 micro_size = micro_sz;
 micro_number = new int[micro_sz];
 micro_number[0] = 20;

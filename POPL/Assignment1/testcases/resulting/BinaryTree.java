@@ -183,17 +183,23 @@ int micro_key;
 boolean micro_has_left;
 boolean micro_has_right;
 micro_Tree micro_my_null;
-public void micro_Init(int micro_v_key, extra_boolean return_value) {
+public void micro_Init(int variable61, extra_boolean return_value) {
+int micro_v_key;
+micro_v_key = variable61;
 micro_key = micro_v_key;
 micro_has_left = false;
 micro_has_right = false;
 return_value.first = true;
 }
-public void micro_SetRight(micro_Tree micro_rn, extra_boolean return_value) {
+public void micro_SetRight(micro_Tree variable62, extra_boolean return_value) {
+micro_Tree micro_rn;
+micro_rn = variable62;
 micro_right = micro_rn;
 return_value.first = true;
 }
-public void micro_SetLeft(micro_Tree micro_ln, extra_boolean return_value) {
+public void micro_SetLeft(micro_Tree variable63, extra_boolean return_value) {
+micro_Tree micro_ln;
+micro_ln = variable63;
 micro_left = micro_ln;
 return_value.first = true;
 }
@@ -206,7 +212,9 @@ return_value.first = micro_left;
 public void micro_GetKey(extra_int return_value) {
 return_value.first = micro_key;
 }
-public void micro_SetKey(int micro_v_key, extra_boolean return_value) {
+public void micro_SetKey(int variable64, extra_boolean return_value) {
+int micro_v_key;
+micro_v_key = variable64;
 micro_key = micro_v_key;
 return_value.first = true;
 }
@@ -216,17 +224,25 @@ return_value.first = micro_has_right;
 public void micro_GetHas_Left(extra_boolean return_value) {
 return_value.first = micro_has_left;
 }
-public void micro_SetHas_Left(boolean micro_val, extra_boolean return_value) {
+public void micro_SetHas_Left(boolean variable65, extra_boolean return_value) {
+boolean micro_val;
+micro_val = variable65;
 micro_has_left = micro_val;
 return_value.first = true;
 }
-public void micro_SetHas_Right(boolean micro_val, extra_boolean return_value) {
+public void micro_SetHas_Right(boolean variable66, extra_boolean return_value) {
+boolean micro_val;
+micro_val = variable66;
 micro_has_right = micro_val;
 return_value.first = true;
 }
-public void micro_Compare(int micro_num1, int micro_num2, extra_boolean return_value) {
+public void micro_Compare(int variable67, int variable68, extra_boolean return_value) {
+int micro_num1;
+int micro_num2;
 boolean micro_ntb;
 int micro_nti;
+micro_num1 = variable67;
+micro_num2 = variable68;
 micro_ntb = false;
 micro_nti = micro_num2+1;
 if(micro_num1<micro_num2){
@@ -242,113 +258,115 @@ micro_ntb = true;
 }
 return_value.first = micro_ntb;
 }
-public void micro_Insert(int micro_v_key, extra_boolean return_value) {
+public void micro_Insert(int variable69, extra_boolean return_value) {
+int micro_v_key;
 micro_Tree micro_new_node;
 boolean micro_ntb;
 boolean micro_cont;
 int micro_key_aux;
 micro_Tree micro_current_node;
-micro_Tree variable61;
-extra_boolean variable62;
-boolean variable63;
-micro_Tree variable64;
-extra_int variable65;
-int variable66;
-micro_Tree variable67;
-extra_boolean variable68;
-boolean variable69;
 micro_Tree variable70;
-extra_micro_Tree variable71;
-micro_Tree variable72;
+extra_boolean variable71;
+boolean variable72;
 micro_Tree variable73;
-extra_boolean variable74;
-boolean variable75;
+extra_int variable74;
+int variable75;
 micro_Tree variable76;
 extra_boolean variable77;
 boolean variable78;
 micro_Tree variable79;
-extra_boolean variable80;
-boolean variable81;
+extra_micro_Tree variable80;
+micro_Tree variable81;
 micro_Tree variable82;
-extra_micro_Tree variable83;
-micro_Tree variable84;
+extra_boolean variable83;
+boolean variable84;
 micro_Tree variable85;
 extra_boolean variable86;
 boolean variable87;
 micro_Tree variable88;
 extra_boolean variable89;
 boolean variable90;
+micro_Tree variable91;
+extra_micro_Tree variable92;
+micro_Tree variable93;
+micro_Tree variable94;
+extra_boolean variable95;
+boolean variable96;
+micro_Tree variable97;
+extra_boolean variable98;
+boolean variable99;
+micro_v_key = variable69;
 micro_new_node = new micro_Tree();
-variable61 = micro_new_node;
-variable62 = new extra_boolean();
-variable61.micro_Init(micro_v_key, variable62);
-variable63 = variable62.first;
-micro_ntb = variable63;
+variable70 = micro_new_node;
+variable71 = new extra_boolean();
+variable70.micro_Init(micro_v_key, variable71);
+variable72 = variable71.first;
+micro_ntb = variable72;
 micro_current_node = this;
 micro_cont = true;
 while(micro_cont){
 {
-variable64 = micro_current_node;
-variable65 = new extra_int();
-variable64.micro_GetKey(variable65);
-variable66 = variable65.first;
-micro_key_aux = variable66;
+variable73 = micro_current_node;
+variable74 = new extra_int();
+variable73.micro_GetKey(variable74);
+variable75 = variable74.first;
+micro_key_aux = variable75;
 if(micro_v_key<micro_key_aux){
 {
-variable67 = micro_current_node;
-variable68 = new extra_boolean();
-variable67.micro_GetHas_Left(variable68);
-variable69 = variable68.first;
-if(variable69){
-variable70 = micro_current_node;
-variable71 = new extra_micro_Tree();
-variable70.micro_GetLeft(variable71);
-variable72 = variable71.first;
-micro_current_node = variable72;
-}
-else {
-{
-micro_cont = false;
-variable73 = micro_current_node;
-variable74 = new extra_boolean();
-variable73.micro_SetHas_Left(true, variable74);
-variable75 = variable74.first;
-micro_ntb = variable75;
 variable76 = micro_current_node;
 variable77 = new extra_boolean();
-variable76.micro_SetLeft(micro_new_node, variable77);
+variable76.micro_GetHas_Left(variable77);
 variable78 = variable77.first;
-micro_ntb = variable78;
-}
-}
-}
-}
-else {
-{
+if(variable78){
 variable79 = micro_current_node;
-variable80 = new extra_boolean();
-variable79.micro_GetHas_Right(variable80);
+variable80 = new extra_micro_Tree();
+variable79.micro_GetLeft(variable80);
 variable81 = variable80.first;
-if(variable81){
-variable82 = micro_current_node;
-variable83 = new extra_micro_Tree();
-variable82.micro_GetRight(variable83);
-variable84 = variable83.first;
-micro_current_node = variable84;
+micro_current_node = variable81;
 }
 else {
 {
 micro_cont = false;
+variable82 = micro_current_node;
+variable83 = new extra_boolean();
+variable82.micro_SetHas_Left(true, variable83);
+variable84 = variable83.first;
+micro_ntb = variable84;
 variable85 = micro_current_node;
 variable86 = new extra_boolean();
-variable85.micro_SetHas_Right(true, variable86);
+variable85.micro_SetLeft(micro_new_node, variable86);
 variable87 = variable86.first;
 micro_ntb = variable87;
+}
+}
+}
+}
+else {
+{
 variable88 = micro_current_node;
 variable89 = new extra_boolean();
-variable88.micro_SetRight(micro_new_node, variable89);
+variable88.micro_GetHas_Right(variable89);
 variable90 = variable89.first;
-micro_ntb = variable90;
+if(variable90){
+variable91 = micro_current_node;
+variable92 = new extra_micro_Tree();
+variable91.micro_GetRight(variable92);
+variable93 = variable92.first;
+micro_current_node = variable93;
+}
+else {
+{
+micro_cont = false;
+variable94 = micro_current_node;
+variable95 = new extra_boolean();
+variable94.micro_SetHas_Right(true, variable95);
+variable96 = variable95.first;
+micro_ntb = variable96;
+variable97 = micro_current_node;
+variable98 = new extra_boolean();
+variable97.micro_SetRight(micro_new_node, variable98);
+variable99 = variable98.first;
+micro_ntb = variable99;
 }
 }
 }
@@ -357,7 +375,8 @@ micro_ntb = variable90;
 }
 return_value.first = true;
 }
-public void micro_Delete(int micro_v_key, extra_boolean return_value) {
+public void micro_Delete(int variable100, extra_boolean return_value) {
+int micro_v_key;
 micro_Tree micro_current_node;
 micro_Tree micro_parent_node;
 boolean micro_cont;
@@ -365,33 +384,34 @@ boolean micro_found;
 boolean micro_is_root;
 int micro_key_aux;
 boolean micro_ntb;
-micro_Tree variable91;
-extra_int variable92;
-int variable93;
-micro_Tree variable94;
-extra_boolean variable95;
-boolean variable96;
-micro_Tree variable97;
-extra_micro_Tree variable98;
-micro_Tree variable99;
-micro_Tree variable100;
-extra_boolean variable101;
-boolean variable102;
-micro_Tree variable103;
-extra_micro_Tree variable104;
-micro_Tree variable105;
-micro_Tree variable106;
-extra_boolean variable107;
-boolean variable108;
+micro_Tree variable101;
+extra_int variable102;
+int variable103;
+micro_Tree variable104;
+extra_boolean variable105;
+boolean variable106;
+micro_Tree variable107;
+extra_micro_Tree variable108;
 micro_Tree variable109;
-extra_boolean variable110;
-boolean variable111;
-micro_Tree variable112;
-extra_boolean variable113;
-boolean variable114;
+micro_Tree variable110;
+extra_boolean variable111;
+boolean variable112;
+micro_Tree variable113;
+extra_micro_Tree variable114;
 micro_Tree variable115;
-extra_boolean variable116;
-boolean variable117;
+micro_Tree variable116;
+extra_boolean variable117;
+boolean variable118;
+micro_Tree variable119;
+extra_boolean variable120;
+boolean variable121;
+micro_Tree variable122;
+extra_boolean variable123;
+boolean variable124;
+micro_Tree variable125;
+extra_boolean variable126;
+boolean variable127;
+micro_v_key = variable100;
 micro_current_node = this;
 micro_parent_node = this;
 micro_cont = true;
@@ -399,24 +419,24 @@ micro_found = false;
 micro_is_root = true;
 while(micro_cont){
 {
-variable91 = micro_current_node;
-variable92 = new extra_int();
-variable91.micro_GetKey(variable92);
-variable93 = variable92.first;
-micro_key_aux = variable93;
+variable101 = micro_current_node;
+variable102 = new extra_int();
+variable101.micro_GetKey(variable102);
+variable103 = variable102.first;
+micro_key_aux = variable103;
 if(micro_v_key<micro_key_aux){
-variable94 = micro_current_node;
-variable95 = new extra_boolean();
-variable94.micro_GetHas_Left(variable95);
-variable96 = variable95.first;
-if(variable96){
+variable104 = micro_current_node;
+variable105 = new extra_boolean();
+variable104.micro_GetHas_Left(variable105);
+variable106 = variable105.first;
+if(variable106){
 {
 micro_parent_node = micro_current_node;
-variable97 = micro_current_node;
-variable98 = new extra_micro_Tree();
-variable97.micro_GetLeft(variable98);
-variable99 = variable98.first;
-micro_current_node = variable99;
+variable107 = micro_current_node;
+variable108 = new extra_micro_Tree();
+variable107.micro_GetLeft(variable108);
+variable109 = variable108.first;
+micro_current_node = variable109;
 }
 }
 else {
@@ -425,18 +445,18 @@ micro_cont = false;
 }
 else {
 if(micro_key_aux<micro_v_key){
-variable100 = micro_current_node;
-variable101 = new extra_boolean();
-variable100.micro_GetHas_Right(variable101);
-variable102 = variable101.first;
-if(variable102){
+variable110 = micro_current_node;
+variable111 = new extra_boolean();
+variable110.micro_GetHas_Right(variable111);
+variable112 = variable111.first;
+if(variable112){
 {
 micro_parent_node = micro_current_node;
-variable103 = micro_current_node;
-variable104 = new extra_micro_Tree();
-variable103.micro_GetRight(variable104);
-variable105 = variable104.first;
-micro_current_node = variable105;
+variable113 = micro_current_node;
+variable114 = new extra_micro_Tree();
+variable113.micro_GetRight(variable114);
+variable115 = variable114.first;
+micro_current_node = variable115;
 }
 }
 else {
@@ -446,31 +466,31 @@ micro_cont = false;
 else {
 {
 if(micro_is_root){
-variable106 = micro_current_node;
-variable107 = new extra_boolean();
-variable106.micro_GetHas_Right(variable107);
-variable108 = variable107.first;
-variable109 = micro_current_node;
-variable110 = new extra_boolean();
-variable109.micro_GetHas_Left(variable110);
-variable111 = variable110.first;
-if((!variable108)&(!variable111)){
+variable116 = micro_current_node;
+variable117 = new extra_boolean();
+variable116.micro_GetHas_Right(variable117);
+variable118 = variable117.first;
+variable119 = micro_current_node;
+variable120 = new extra_boolean();
+variable119.micro_GetHas_Left(variable120);
+variable121 = variable120.first;
+if((!variable118)&(!variable121)){
 micro_ntb = true;
 }
 else {
-variable112 = this;
-variable113 = new extra_boolean();
-variable112.micro_Remove(micro_parent_node,  micro_current_node, variable113);
-variable114 = variable113.first;
-micro_ntb = variable114;
+variable122 = this;
+variable123 = new extra_boolean();
+variable122.micro_Remove(micro_parent_node,  micro_current_node, variable123);
+variable124 = variable123.first;
+micro_ntb = variable124;
 }
 }
 else {
-variable115 = this;
-variable116 = new extra_boolean();
-variable115.micro_Remove(micro_parent_node,  micro_current_node, variable116);
-variable117 = variable116.first;
-micro_ntb = variable117;
+variable125 = this;
+variable126 = new extra_boolean();
+variable125.micro_Remove(micro_parent_node,  micro_current_node, variable126);
+variable127 = variable126.first;
+micro_ntb = variable127;
 }
 micro_found = true;
 micro_cont = false;
@@ -482,295 +502,309 @@ micro_is_root = false;
 }
 return_value.first = micro_found;
 }
-public void micro_Remove(micro_Tree micro_p_node, micro_Tree micro_c_node, extra_boolean return_value) {
+public void micro_Remove(micro_Tree variable128, micro_Tree variable129, extra_boolean return_value) {
+micro_Tree micro_p_node;
+micro_Tree micro_c_node;
 boolean micro_ntb;
 int micro_auxkey1;
 int micro_auxkey2;
-micro_Tree variable118;
-extra_boolean variable119;
-boolean variable120;
-micro_Tree variable121;
-extra_boolean variable122;
-boolean variable123;
-micro_Tree variable124;
-extra_boolean variable125;
-boolean variable126;
-micro_Tree variable127;
-extra_boolean variable128;
-boolean variable129;
 micro_Tree variable130;
-extra_int variable131;
-int variable132;
+extra_boolean variable131;
+boolean variable132;
 micro_Tree variable133;
-extra_micro_Tree variable134;
-micro_Tree variable135;
+extra_boolean variable134;
+boolean variable135;
 micro_Tree variable136;
-extra_int variable137;
-int variable138;
+extra_boolean variable137;
+boolean variable138;
 micro_Tree variable139;
 extra_boolean variable140;
 boolean variable141;
 micro_Tree variable142;
-extra_boolean variable143;
-boolean variable144;
+extra_int variable143;
+int variable144;
 micro_Tree variable145;
-extra_boolean variable146;
-boolean variable147;
+extra_micro_Tree variable146;
+micro_Tree variable147;
 micro_Tree variable148;
-extra_boolean variable149;
-boolean variable150;
+extra_int variable149;
+int variable150;
 micro_Tree variable151;
 extra_boolean variable152;
 boolean variable153;
-variable118 = micro_c_node;
-variable119 = new extra_boolean();
-variable118.micro_GetHas_Left(variable119);
-variable120 = variable119.first;
-if(variable120){
-variable121 = this;
-variable122 = new extra_boolean();
-variable121.micro_RemoveLeft(micro_p_node,  micro_c_node, variable122);
-variable123 = variable122.first;
-micro_ntb = variable123;
-}
-else {
-variable124 = micro_c_node;
-variable125 = new extra_boolean();
-variable124.micro_GetHas_Right(variable125);
-variable126 = variable125.first;
-if(variable126){
-variable127 = this;
-variable128 = new extra_boolean();
-variable127.micro_RemoveRight(micro_p_node,  micro_c_node, variable128);
-variable129 = variable128.first;
-micro_ntb = variable129;
-}
-else {
-{
-variable130 = micro_c_node;
-variable131 = new extra_int();
-variable130.micro_GetKey(variable131);
-variable132 = variable131.first;
-micro_auxkey1 = variable132;
-variable133 = micro_p_node;
-variable134 = new extra_micro_Tree();
-variable133.micro_GetLeft(variable134);
-variable135 = variable134.first;
-variable136 = (variable135);
-variable137 = new extra_int();
-variable136.micro_GetKey(variable137);
-variable138 = variable137.first;
-micro_auxkey2 = variable138;
-variable139 = this;
-variable140 = new extra_boolean();
-variable139.micro_Compare(micro_auxkey1,  micro_auxkey2, variable140);
-variable141 = variable140.first;
-if(variable141){
-{
-variable142 = micro_p_node;
-variable143 = new extra_boolean();
-variable142.micro_SetLeft(micro_my_null, variable143);
-variable144 = variable143.first;
-micro_ntb = variable144;
-variable145 = micro_p_node;
-variable146 = new extra_boolean();
-variable145.micro_SetHas_Left(false, variable146);
-variable147 = variable146.first;
-micro_ntb = variable147;
-}
-}
-else {
-{
-variable148 = micro_p_node;
-variable149 = new extra_boolean();
-variable148.micro_SetRight(micro_my_null, variable149);
-variable150 = variable149.first;
-micro_ntb = variable150;
-variable151 = micro_p_node;
-variable152 = new extra_boolean();
-variable151.micro_SetHas_Right(false, variable152);
-variable153 = variable152.first;
-micro_ntb = variable153;
-}
-}
-}
-}
-}
-return_value.first = true;
-}
-public void micro_RemoveRight(micro_Tree micro_p_node, micro_Tree micro_c_node, extra_boolean return_value) {
-boolean micro_ntb;
 micro_Tree variable154;
 extra_boolean variable155;
 boolean variable156;
 micro_Tree variable157;
-micro_Tree variable158;
-extra_micro_Tree variable159;
+extra_boolean variable158;
+boolean variable159;
 micro_Tree variable160;
-micro_Tree variable161;
-extra_int variable162;
-int variable163;
+extra_boolean variable161;
+boolean variable162;
+micro_Tree variable163;
 extra_boolean variable164;
 boolean variable165;
-micro_Tree variable166;
-extra_micro_Tree variable167;
-micro_Tree variable168;
-micro_Tree variable169;
-extra_boolean variable170;
-boolean variable171;
-micro_Tree variable172;
-extra_boolean variable173;
-boolean variable174;
-variable154 = micro_c_node;
-variable155 = new extra_boolean();
-variable154.micro_GetHas_Right(variable155);
-variable156 = variable155.first;
-while(variable156){
+micro_p_node = variable128;
+micro_c_node = variable129;
+variable130 = micro_c_node;
+variable131 = new extra_boolean();
+variable130.micro_GetHas_Left(variable131);
+variable132 = variable131.first;
+if(variable132){
+variable133 = this;
+variable134 = new extra_boolean();
+variable133.micro_RemoveLeft(micro_p_node,  micro_c_node, variable134);
+variable135 = variable134.first;
+micro_ntb = variable135;
+}
+else {
+variable136 = micro_c_node;
+variable137 = new extra_boolean();
+variable136.micro_GetHas_Right(variable137);
+variable138 = variable137.first;
+if(variable138){
+variable139 = this;
+variable140 = new extra_boolean();
+variable139.micro_RemoveRight(micro_p_node,  micro_c_node, variable140);
+variable141 = variable140.first;
+micro_ntb = variable141;
+}
+else {
 {
-variable157 = micro_c_node;
-variable158 = micro_c_node;
-variable159 = new extra_micro_Tree();
-variable158.micro_GetRight(variable159);
-variable160 = variable159.first;
-variable161 = (variable160);
-variable162 = new extra_int();
-variable161.micro_GetKey(variable162);
-variable163 = variable162.first;
+variable142 = micro_c_node;
+variable143 = new extra_int();
+variable142.micro_GetKey(variable143);
+variable144 = variable143.first;
+micro_auxkey1 = variable144;
+variable145 = micro_p_node;
+variable146 = new extra_micro_Tree();
+variable145.micro_GetLeft(variable146);
+variable147 = variable146.first;
+variable148 = (variable147);
+variable149 = new extra_int();
+variable148.micro_GetKey(variable149);
+variable150 = variable149.first;
+micro_auxkey2 = variable150;
+variable151 = this;
+variable152 = new extra_boolean();
+variable151.micro_Compare(micro_auxkey1,  micro_auxkey2, variable152);
+variable153 = variable152.first;
+if(variable153){
+{
+variable154 = micro_p_node;
+variable155 = new extra_boolean();
+variable154.micro_SetLeft(micro_my_null, variable155);
+variable156 = variable155.first;
+micro_ntb = variable156;
+variable157 = micro_p_node;
+variable158 = new extra_boolean();
+variable157.micro_SetHas_Left(false, variable158);
+variable159 = variable158.first;
+micro_ntb = variable159;
+}
+}
+else {
+{
+variable160 = micro_p_node;
+variable161 = new extra_boolean();
+variable160.micro_SetRight(micro_my_null, variable161);
+variable162 = variable161.first;
+micro_ntb = variable162;
+variable163 = micro_p_node;
 variable164 = new extra_boolean();
-variable157.micro_SetKey(variable163, variable164);
+variable163.micro_SetHas_Right(false, variable164);
 variable165 = variable164.first;
 micro_ntb = variable165;
-micro_p_node = micro_c_node;
-variable166 = micro_c_node;
-variable167 = new extra_micro_Tree();
-variable166.micro_GetRight(variable167);
-variable168 = variable167.first;
-micro_c_node = variable168;
 }
-variable154 = micro_c_node;
-variable155 = new extra_boolean();
-variable154.micro_GetHas_Right(variable155);
-variable156 = variable155.first;
 }
-variable169 = micro_p_node;
-variable170 = new extra_boolean();
-variable169.micro_SetRight(micro_my_null, variable170);
-variable171 = variable170.first;
-micro_ntb = variable171;
-variable172 = micro_p_node;
-variable173 = new extra_boolean();
-variable172.micro_SetHas_Right(false, variable173);
-variable174 = variable173.first;
-micro_ntb = variable174;
+}
+}
+}
 return_value.first = true;
 }
-public void micro_RemoveLeft(micro_Tree micro_p_node, micro_Tree micro_c_node, extra_boolean return_value) {
+public void micro_RemoveRight(micro_Tree variable166, micro_Tree variable167, extra_boolean return_value) {
+micro_Tree micro_p_node;
+micro_Tree micro_c_node;
 boolean micro_ntb;
+micro_Tree variable168;
+extra_boolean variable169;
+boolean variable170;
+micro_Tree variable171;
+micro_Tree variable172;
+extra_micro_Tree variable173;
+micro_Tree variable174;
 micro_Tree variable175;
-extra_boolean variable176;
-boolean variable177;
-micro_Tree variable178;
-micro_Tree variable179;
-extra_micro_Tree variable180;
-micro_Tree variable181;
+extra_int variable176;
+int variable177;
+extra_boolean variable178;
+boolean variable179;
+micro_Tree variable180;
+extra_micro_Tree variable181;
 micro_Tree variable182;
-extra_int variable183;
-int variable184;
-extra_boolean variable185;
-boolean variable186;
-micro_Tree variable187;
-extra_micro_Tree variable188;
-micro_Tree variable189;
-micro_Tree variable190;
-extra_boolean variable191;
-boolean variable192;
-micro_Tree variable193;
-extra_boolean variable194;
-boolean variable195;
-variable175 = micro_c_node;
-variable176 = new extra_boolean();
-variable175.micro_GetHas_Left(variable176);
-variable177 = variable176.first;
-while(variable177){
+micro_Tree variable183;
+extra_boolean variable184;
+boolean variable185;
+micro_Tree variable186;
+extra_boolean variable187;
+boolean variable188;
+micro_p_node = variable166;
+micro_c_node = variable167;
+variable168 = micro_c_node;
+variable169 = new extra_boolean();
+variable168.micro_GetHas_Right(variable169);
+variable170 = variable169.first;
+while(variable170){
 {
-variable178 = micro_c_node;
-variable179 = micro_c_node;
-variable180 = new extra_micro_Tree();
-variable179.micro_GetLeft(variable180);
-variable181 = variable180.first;
-variable182 = (variable181);
-variable183 = new extra_int();
-variable182.micro_GetKey(variable183);
-variable184 = variable183.first;
-variable185 = new extra_boolean();
-variable178.micro_SetKey(variable184, variable185);
-variable186 = variable185.first;
-micro_ntb = variable186;
-micro_p_node = micro_c_node;
-variable187 = micro_c_node;
-variable188 = new extra_micro_Tree();
-variable187.micro_GetLeft(variable188);
-variable189 = variable188.first;
-micro_c_node = variable189;
-}
-variable175 = micro_c_node;
-variable176 = new extra_boolean();
-variable175.micro_GetHas_Left(variable176);
+variable171 = micro_c_node;
+variable172 = micro_c_node;
+variable173 = new extra_micro_Tree();
+variable172.micro_GetRight(variable173);
+variable174 = variable173.first;
+variable175 = (variable174);
+variable176 = new extra_int();
+variable175.micro_GetKey(variable176);
 variable177 = variable176.first;
+variable178 = new extra_boolean();
+variable171.micro_SetKey(variable177, variable178);
+variable179 = variable178.first;
+micro_ntb = variable179;
+micro_p_node = micro_c_node;
+variable180 = micro_c_node;
+variable181 = new extra_micro_Tree();
+variable180.micro_GetRight(variable181);
+variable182 = variable181.first;
+micro_c_node = variable182;
 }
-variable190 = micro_p_node;
-variable191 = new extra_boolean();
-variable190.micro_SetLeft(micro_my_null, variable191);
-variable192 = variable191.first;
-micro_ntb = variable192;
-variable193 = micro_p_node;
-variable194 = new extra_boolean();
-variable193.micro_SetHas_Left(false, variable194);
-variable195 = variable194.first;
-micro_ntb = variable195;
+variable168 = micro_c_node;
+variable169 = new extra_boolean();
+variable168.micro_GetHas_Right(variable169);
+variable170 = variable169.first;
+}
+variable183 = micro_p_node;
+variable184 = new extra_boolean();
+variable183.micro_SetRight(micro_my_null, variable184);
+variable185 = variable184.first;
+micro_ntb = variable185;
+variable186 = micro_p_node;
+variable187 = new extra_boolean();
+variable186.micro_SetHas_Right(false, variable187);
+variable188 = variable187.first;
+micro_ntb = variable188;
 return_value.first = true;
 }
-public void micro_Search(int micro_v_key, extra_int return_value) {
+public void micro_RemoveLeft(micro_Tree variable189, micro_Tree variable190, extra_boolean return_value) {
+micro_Tree micro_p_node;
+micro_Tree micro_c_node;
+boolean micro_ntb;
+micro_Tree variable191;
+extra_boolean variable192;
+boolean variable193;
+micro_Tree variable194;
+micro_Tree variable195;
+extra_micro_Tree variable196;
+micro_Tree variable197;
+micro_Tree variable198;
+extra_int variable199;
+int variable200;
+extra_boolean variable201;
+boolean variable202;
+micro_Tree variable203;
+extra_micro_Tree variable204;
+micro_Tree variable205;
+micro_Tree variable206;
+extra_boolean variable207;
+boolean variable208;
+micro_Tree variable209;
+extra_boolean variable210;
+boolean variable211;
+micro_p_node = variable189;
+micro_c_node = variable190;
+variable191 = micro_c_node;
+variable192 = new extra_boolean();
+variable191.micro_GetHas_Left(variable192);
+variable193 = variable192.first;
+while(variable193){
+{
+variable194 = micro_c_node;
+variable195 = micro_c_node;
+variable196 = new extra_micro_Tree();
+variable195.micro_GetLeft(variable196);
+variable197 = variable196.first;
+variable198 = (variable197);
+variable199 = new extra_int();
+variable198.micro_GetKey(variable199);
+variable200 = variable199.first;
+variable201 = new extra_boolean();
+variable194.micro_SetKey(variable200, variable201);
+variable202 = variable201.first;
+micro_ntb = variable202;
+micro_p_node = micro_c_node;
+variable203 = micro_c_node;
+variable204 = new extra_micro_Tree();
+variable203.micro_GetLeft(variable204);
+variable205 = variable204.first;
+micro_c_node = variable205;
+}
+variable191 = micro_c_node;
+variable192 = new extra_boolean();
+variable191.micro_GetHas_Left(variable192);
+variable193 = variable192.first;
+}
+variable206 = micro_p_node;
+variable207 = new extra_boolean();
+variable206.micro_SetLeft(micro_my_null, variable207);
+variable208 = variable207.first;
+micro_ntb = variable208;
+variable209 = micro_p_node;
+variable210 = new extra_boolean();
+variable209.micro_SetHas_Left(false, variable210);
+variable211 = variable210.first;
+micro_ntb = variable211;
+return_value.first = true;
+}
+public void micro_Search(int variable212, extra_int return_value) {
+int micro_v_key;
 boolean micro_cont;
 int micro_ifound;
 micro_Tree micro_current_node;
 int micro_key_aux;
-micro_Tree variable196;
-extra_int variable197;
-int variable198;
-micro_Tree variable199;
-extra_boolean variable200;
-boolean variable201;
-micro_Tree variable202;
-extra_micro_Tree variable203;
-micro_Tree variable204;
-micro_Tree variable205;
-extra_boolean variable206;
-boolean variable207;
-micro_Tree variable208;
-extra_micro_Tree variable209;
-micro_Tree variable210;
+micro_Tree variable213;
+extra_int variable214;
+int variable215;
+micro_Tree variable216;
+extra_boolean variable217;
+boolean variable218;
+micro_Tree variable219;
+extra_micro_Tree variable220;
+micro_Tree variable221;
+micro_Tree variable222;
+extra_boolean variable223;
+boolean variable224;
+micro_Tree variable225;
+extra_micro_Tree variable226;
+micro_Tree variable227;
+micro_v_key = variable212;
 micro_current_node = this;
 micro_cont = true;
 micro_ifound = 0;
 while(micro_cont){
 {
-variable196 = micro_current_node;
-variable197 = new extra_int();
-variable196.micro_GetKey(variable197);
-variable198 = variable197.first;
-micro_key_aux = variable198;
+variable213 = micro_current_node;
+variable214 = new extra_int();
+variable213.micro_GetKey(variable214);
+variable215 = variable214.first;
+micro_key_aux = variable215;
 if(micro_v_key<micro_key_aux){
-variable199 = micro_current_node;
-variable200 = new extra_boolean();
-variable199.micro_GetHas_Left(variable200);
-variable201 = variable200.first;
-if(variable201){
-variable202 = micro_current_node;
-variable203 = new extra_micro_Tree();
-variable202.micro_GetLeft(variable203);
-variable204 = variable203.first;
-micro_current_node = variable204;
+variable216 = micro_current_node;
+variable217 = new extra_boolean();
+variable216.micro_GetHas_Left(variable217);
+variable218 = variable217.first;
+if(variable218){
+variable219 = micro_current_node;
+variable220 = new extra_micro_Tree();
+variable219.micro_GetLeft(variable220);
+variable221 = variable220.first;
+micro_current_node = variable221;
 }
 else {
 micro_cont = false;
@@ -778,16 +812,16 @@ micro_cont = false;
 }
 else {
 if(micro_key_aux<micro_v_key){
-variable205 = micro_current_node;
-variable206 = new extra_boolean();
-variable205.micro_GetHas_Right(variable206);
-variable207 = variable206.first;
-if(variable207){
-variable208 = micro_current_node;
-variable209 = new extra_micro_Tree();
-variable208.micro_GetRight(variable209);
-variable210 = variable209.first;
-micro_current_node = variable210;
+variable222 = micro_current_node;
+variable223 = new extra_boolean();
+variable222.micro_GetHas_Right(variable223);
+variable224 = variable223.first;
+if(variable224){
+variable225 = micro_current_node;
+variable226 = new extra_micro_Tree();
+variable225.micro_GetRight(variable226);
+variable227 = variable226.first;
+micro_current_node = variable227;
 }
 else {
 micro_cont = false;
@@ -807,80 +841,82 @@ return_value.first = micro_ifound;
 public void micro_Print(extra_boolean return_value) {
 micro_Tree micro_current_node;
 boolean micro_ntb;
-micro_Tree variable211;
-extra_boolean variable212;
-boolean variable213;
+micro_Tree variable228;
+extra_boolean variable229;
+boolean variable230;
 micro_current_node = this;
-variable211 = this;
-variable212 = new extra_boolean();
-variable211.micro_RecPrint(micro_current_node, variable212);
-variable213 = variable212.first;
-micro_ntb = variable213;
+variable228 = this;
+variable229 = new extra_boolean();
+variable228.micro_RecPrint(micro_current_node, variable229);
+variable230 = variable229.first;
+micro_ntb = variable230;
 return_value.first = true;
 }
-public void micro_RecPrint(micro_Tree micro_node, extra_boolean return_value) {
+public void micro_RecPrint(micro_Tree variable231, extra_boolean return_value) {
+micro_Tree micro_node;
 boolean micro_ntb;
-micro_Tree variable214;
-extra_boolean variable215;
-boolean variable216;
-micro_Tree variable217;
-micro_Tree variable218;
-extra_micro_Tree variable219;
-micro_Tree variable220;
-extra_boolean variable221;
-boolean variable222;
-micro_Tree variable223;
-extra_int variable224;
-int variable225;
-micro_Tree variable226;
-extra_boolean variable227;
-boolean variable228;
-micro_Tree variable229;
-micro_Tree variable230;
-extra_micro_Tree variable231;
 micro_Tree variable232;
 extra_boolean variable233;
 boolean variable234;
-variable214 = micro_node;
-variable215 = new extra_boolean();
-variable214.micro_GetHas_Left(variable215);
-variable216 = variable215.first;
-if(variable216){
+micro_Tree variable235;
+micro_Tree variable236;
+extra_micro_Tree variable237;
+micro_Tree variable238;
+extra_boolean variable239;
+boolean variable240;
+micro_Tree variable241;
+extra_int variable242;
+int variable243;
+micro_Tree variable244;
+extra_boolean variable245;
+boolean variable246;
+micro_Tree variable247;
+micro_Tree variable248;
+extra_micro_Tree variable249;
+micro_Tree variable250;
+extra_boolean variable251;
+boolean variable252;
+micro_node = variable231;
+variable232 = micro_node;
+variable233 = new extra_boolean();
+variable232.micro_GetHas_Left(variable233);
+variable234 = variable233.first;
+if(variable234){
 {
-variable217 = this;
-variable218 = micro_node;
-variable219 = new extra_micro_Tree();
-variable218.micro_GetLeft(variable219);
-variable220 = variable219.first;
-variable221 = new extra_boolean();
-variable217.micro_RecPrint(variable220, variable221);
-variable222 = variable221.first;
-micro_ntb = variable222;
+variable235 = this;
+variable236 = micro_node;
+variable237 = new extra_micro_Tree();
+variable236.micro_GetLeft(variable237);
+variable238 = variable237.first;
+variable239 = new extra_boolean();
+variable235.micro_RecPrint(variable238, variable239);
+variable240 = variable239.first;
+micro_ntb = variable240;
 }
 }
 else {
 micro_ntb = true;
 }
-variable223 = micro_node;
-variable224 = new extra_int();
-variable223.micro_GetKey(variable224);
-variable225 = variable224.first;
-System.out.println(variable225);
-variable226 = micro_node;
-variable227 = new extra_boolean();
-variable226.micro_GetHas_Right(variable227);
-variable228 = variable227.first;
-if(variable228){
+variable241 = micro_node;
+variable242 = new extra_int();
+variable241.micro_GetKey(variable242);
+variable243 = variable242.first;
+System.out.println(variable243);
+variable244 = micro_node;
+variable245 = new extra_boolean();
+variable244.micro_GetHas_Right(variable245);
+variable246 = variable245.first;
+if(variable246){
 {
-variable229 = this;
-variable230 = micro_node;
-variable231 = new extra_micro_Tree();
-variable230.micro_GetRight(variable231);
-variable232 = variable231.first;
-variable233 = new extra_boolean();
-variable229.micro_RecPrint(variable232, variable233);
-variable234 = variable233.first;
-micro_ntb = variable234;
+variable247 = this;
+variable248 = micro_node;
+variable249 = new extra_micro_Tree();
+variable248.micro_GetRight(variable249);
+variable250 = variable249.first;
+variable251 = new extra_boolean();
+variable247.micro_RecPrint(variable250, variable251);
+variable252 = variable251.first;
+micro_ntb = variable252;
 }
 }
 else {

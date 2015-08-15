@@ -183,13 +183,17 @@ should be less than this for the packets not to queue up.\\
 
 The same packet might get different treatment at different routers.
 \end{itemize}
+
 Telephone networks :\\
 The paths have been done via circuit switching. The controller
 decides these paths. The controller has the global view. This one is
-centralized routing. OSPF is distributed routing as there is
+centralized routing.\\
+
+OSPF is distributed routing as there is
 no one centralized node. Hence the distributed one is where each
 router has the ability to route on its own without the
 help of the centralized node.\\
+
 Current challenge is to have some controllers but not one like
 centralized controller.\\
 
@@ -203,10 +207,37 @@ different companies would be easier. The controller is central for
 some routers and it is not specific to a router as before. Example for
 open interface is open flow. This is called south bound interface.\\
 
-East west is between servers traffic and North south is between the server
+East west is between servers traffic and  North south is between the server
 and the internet in data center terms.\\
 
 The applications that talk to the controller software is called the
 north bound interface. Different south bound interfaces are NOX,
-POX, Beacon, Floodlight, OpenDayLight, ONOS.
+POX, Beacon, Floodlight, OpenDayLight, ONOS.\\
+
+The switch and router are to be designed to be dumb devices.
+The only functionalities are looking up forwarding table.
+Implementing packet classification in hardware :\\
+First do a good algorithm in software and translate part of
+it as hardware. Do an ASIC/FPGA implementation of an algorithm.\\
+FPGA : Field Programmable Gate Array.\\
+ASIC : Application Specific Integrated Circuit.\\
+FPGA is slightly better. We can modify easily.\\
+Hardware lookup tables are also better.
+These are called ternary content address memory.\\
+It is called ternary because 0, 1 or dont care.\\
+TCAM is also programmable. TCAM is very fast, but costly
+and consumes more power. We must also try to ensure
+lesser size in TCAMs. Now the data plane has this
+hardware dedicated for it. This is a very simple router
+and hence it would become a commodity and the USP of
+CISCO, etc breaks. The vendors dont want to make dumb
+routers.\\
+
+Active networking : Every packet has embedded code
+in it which tells the router how to progress. Specialized
+instruction could be given to the router for it to process
+the router. Read about IETF.\\
+
+FORCES : separation of control and data within or outside of a router.\\
+Ethane giving rise to OpenFlow.\\
 \end{document}

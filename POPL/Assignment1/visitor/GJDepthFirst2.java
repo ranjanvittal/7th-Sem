@@ -288,6 +288,8 @@ public class GJDepthFirst2<R,A> extends GJDepthFirst<R, A> {
 
         String method = (String) n.f2.accept(this, argu);
         currentClassInfo.putMethod(method, type);
+        variableString = "";
+        methodString = "";
         String f3 = (String) n.f3.accept(this, argu);
         String f4 = (String) n.f4.accept(this, argu);
         if(f4 == "")
@@ -300,8 +302,7 @@ public class GJDepthFirst2<R,A> extends GJDepthFirst<R, A> {
             f0 + " void " + method + f3 +
             f4 + f5 + " " + f6 + "\n"
         );
-        variableString = "";
-        methodString = "";
+
         String f7 = (String) n.f7.accept(this, argu);
         String f8 = (String) n.f8.accept(this, argu);
         String f10 = (String) n.f10.accept(this, argu);
@@ -329,7 +330,10 @@ public class GJDepthFirst2<R,A> extends GJDepthFirst<R, A> {
         String f0 = (String) n.f0.accept(this, argu);
         String f1 = (String) n.f1.accept(this, argu);
         currentVariables.put(f1, f0);
-        return (R) (f0 + " " + f1);
+        String f2 = newVariable();
+        variableString += f0 + " " + f1 + ";\n";
+        methodString += f1 + " = " + f2 + ";\n";
+        return (R) (f0 + " " + f2);
     }
 
     /**
