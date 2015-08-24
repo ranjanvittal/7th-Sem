@@ -4,8 +4,6 @@ section .text
 start:                     ;tell linker entry point
     push 3
     push 3
-    mov eax, 4
-    int 0x80
     call ackermann
     call WriteInt
     call Exit

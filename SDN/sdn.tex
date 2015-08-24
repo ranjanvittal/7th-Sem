@@ -240,4 +240,96 @@ the router. Read about IETF.\\
 
 FORCES : separation of control and data within or outside of a router.\\
 Ethane giving rise to OpenFlow.\\
+Look at the slides. (History of programming networks).
+B - Broadcast, U - Unicast,
+M - Multicast which is specialized way of combining
+local networks. Like a match being streamed to one machine
+and several people near the machine gets the copies. So long
+range transmissions are enabled better.
+MBone was designed for multicast over the underlying network.
+They had specialized routers which did muliticast routing. They
+were called application level routers. This was considered because
+the underlying stuff need not be changed.\\
+6Bone built IPV6 over IPV4. IPV6 is fixed length 40 byte header.
+IPV4 is variable length header. Similar to MBone
+they built IPV6 application level routers. Most of
+these were application level overlay.\\
+
+Application to SDN controller(Control plane) to routers(Data plane).
+Standards are made by ONF. The application layer needs a consistent
+interface to the controller. The management and administration
+planes has interfaces to all the three. Management supplies software
+updates to the routers, it configures policy and monitors performance
+with the control layer.\\
+
+Applications of SDN:\\
+Data center networks, Enterprise networks, Wireless Access Networks,
+Optical networks, home and small business networks.\\
+
+(Look at picture in slide)\\
+Green arrows : When the entry is present router goes through these.\\
+Blue arrows : When it doesnt know how to handle.\\
+Scalability in terms of number of new flows is a huge bottle neck.\\
+Data center networks :\\
+Elephant flow : The number of flows is small and the bandwidth is huge.
+Backups, distributed computation (east west traffic). Most of
+the traffic is inside the data center. VM migration
+also takes a lot of time.\\
+Mice flows : There are lot of such flows but very small bandwidths.\\
+
+OpenFlow protocol (Read from slides).\\
+A set of rules define flows like a tuple matching instead
+of just src IP and destination IP.\\
+\begin{itemize}
+\item Switch has two parts, Datapath and the SDN client.
+\item The communication between the client and the controller
+is generally TLS over TCP.
+\item TLS is transport layer security. We might TCP alone if we want
+faster performance. Forwarding element implements CPU like instructions.
+\item These were for Ethernet switches initially. Now they have
+extended to other switches and routers. Current version is 1.4.
+Openflow version 1.0 came in 2009.
+\end{itemize}
+
+Openflow Specs :\\
+\begin{itemize}
+\item In version 1.0 there were 12 fields.
+\item It had only one flow table. As we went on more
+flow tables were added for easier access or specialized
+processing.
+\item Initially the table is empty we learn the mac address
+of every port. If a new mac address comes in the controller
+is notified and a broadcast of the mac is made.
+\item Src Port, Destination Port, IP Protocol, Type of Service
+and 8 more fields are there in the flow table.
+\item There are many different actions which could be there
+for processing of a packet. Statistics are also collected based on what
+is done and would be given to the management plane.
+Actions are forward or drop in the first version.
+Special actions are Enqueue, modify. A flow table can
+specify multiply actions for a given packet. A port
+can have multiple queues. Modify packet headers can also be
+done.
+\item Packets are of two types:\\
+From a host or from the controller. If it is from the controller,
+we might need to update the router.
+\item If there are more than one flow table, the packet
+will go through all the flow tables and collect all the actions
+and do it finally.
+\item We might need to modify the src IP even while forwarding
+listed as an action (ie) modify packet. Update action
+set, update metadata are also different instructions to be
+applied. Controller is a piece of software.
+\item Now there are hardware switches implementing OpenFlow.
+\item Interoperability is majorly maintained.
+\item There are special virtual ports like LOCAL, ALL, CONTROLLER
+specifying where it must be sent. IN_PORT meaning send packet
+back on input port. TABLE packets sent by controller
+forwarded either on specified output in PACKET_OUT message or the
+Flow Table.FLOOD : Similar to ALL except that it send on links of
+the STP tree. NORMAL is the normal processing.
+\end{itemize}
+
+
+
 \end{document}

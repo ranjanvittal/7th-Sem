@@ -1,0 +1,36 @@
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+h1 h2 h3 h4 h5 h6 h7 h8 
+*** Adding switches:
+a1 a2 c1 e1 e2 e3 e4 
+*** Adding links:
+(10.00Mbit 5ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (a1, c1) (10.00Mbit 5ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (a2, c1) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (e1, a1) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (e2, a1) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (e3, a2) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (e4, a2) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h1, e1) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h2, e1) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h3, e2) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h4, e2) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h5, e3) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h6, e3) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h7, e4) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (h8, e4) 
+*** Configuring hosts
+h1 h2 h3 h4 h5 h6 h7 h8 
+*** Starting controller
+c0 
+*** Starting 7 switches
+a1 a2 c1 e1 e2 e3 e4 ...(10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (10.00Mbit 5ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 3ms delay 1% loss) (10.00Mbit 4ms delay 1% loss) 
+*** Waiting for switches to connect
+a1 a2 c1 e1 e2 e3 e4 
+*** Ping: testing ping reachability
+h1 -> h2 h3 h4 h5 X h7 h8 
+h2 -> h1 h3 h4 h5 h6 h7 h8 
+h3 -> h1 h2 h4 X h6 h7 h8 
+h4 -> h1 X h3 X X h7 h8 
+h5 -> h1 h2 h3 h4 h6 h7 h8 
+h6 -> h1 h2 h3 h4 X h7 h8 
+h7 -> h1 h2 h3 h4 X h6 h8 
+h8 -> h1 h2 h3 h4 h5 h6 h7 
+*** Results: 12% dropped (49/56 received)
+*** Stopping 1 controllers
+c0 
+*** Stopping 14 links
+..............
+*** Stopping 7 switches
+a1 a2 c1 e1 e2 e3 e4 
+*** Stopping 8 hosts
+h1 h2 h3 h4 h5 h6 h7 h8 
+*** Done
+completed in 80.198 seconds
