@@ -993,7 +993,7 @@ static private int jjMoveNfa_0(int startState, int curPos)
    }
 }
 static final int[] jjnextStates = {
-   6, 17, 18, 7, 8, 10, 13, 14, 16, 20, 21, 23, 
+   6, 17, 18, 7, 8, 10, 13, 14, 16, 20, 21, 23,
 };
 private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
 {
@@ -1030,13 +1030,13 @@ private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, lo
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, null, null, null, null, null, "\50", "\51", "\133", 
-"\135", "\173", "\175", "\73", "\56", "\75", "\74", "\53", "\55", "\46", "\41", 
-"\142\157\157\154\145\141\156", "\143\154\141\163\163", "\151\156\164\145\162\146\141\143\145", 
-"\145\154\163\145", "\145\170\164\145\156\144\163", "\146\141\154\163\145", "\151\146", 
-"\167\150\151\154\145", "\151\156\164", "\155\141\151\156", "\156\145\167", 
-"\160\165\142\154\151\143", "\162\145\164\165\162\156", "\163\164\141\164\151\143", 
-"\123\164\162\151\156\147", "\164\150\151\163", "\164\162\165\145", 
+"", null, null, null, null, null, null, null, null, "\50", "\51", "\133",
+"\135", "\173", "\175", "\73", "\56", "\75", "\74", "\53", "\55", "\46", "\41",
+"\142\157\157\154\145\141\156", "\143\154\141\163\163", "\151\156\164\145\162\146\141\143\145",
+"\145\154\163\145", "\145\170\164\145\156\144\163", "\146\141\154\163\145", "\151\146",
+"\167\150\151\154\145", "\151\156\164", "\155\141\151\156", "\156\145\167",
+"\160\165\142\154\151\143", "\162\145\164\165\162\156", "\163\164\141\164\151\143",
+"\123\164\162\151\156\147", "\164\150\151\163", "\164\162\165\145",
 "\123\171\163\164\145\155\56\157\165\164\56\160\162\151\156\164\154\156", "\166\157\151\144", null, null, null, null, "\54", "\52", };
 
 /** Lexer state names. */
@@ -1044,13 +1044,13 @@ public static final String[] lexStateNames = {
    "DEFAULT",
 };
 static final long[] jjtoToken = {
-   0xcffffffffe01L, 
+   0xcffffffffe01L,
 };
 static final long[] jjtoSkip = {
-   0x1feL, 
+   0x1feL,
 };
 static final long[] jjtoSpecial = {
-   0x1c0L, 
+   0x1c0L,
 };
 static protected JavaCharStream input_stream;
 static private final int[] jjrounds = new int[24];
@@ -1133,7 +1133,7 @@ static int jjmatchedPos;
 static int jjmatchedKind;
 
 /** Get the next Token. */
-public static Token getNextToken() 
+public static Token getNextToken()
 {
   Token specialToken = null;
   Token matchedToken;
