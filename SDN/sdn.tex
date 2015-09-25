@@ -334,6 +334,59 @@ Hubs simply forward whatever it gets to all the nodes.
 Group table is a set of actions specified.
 OXM Header followed by TLV packets. The OXM header contains
 4 bytes which also has the length of the overall packet which is
-from 5 to 259 bytes (1 to 255 otherwise).
+from 5 to 259 bytes (1 to 255 otherwise).\\
+There are master and slave controllers. When master fails,
+the slave takes over. There is a concept of equal controller
+where two controllers can access the same router.\\
+Data path id is the connection number of the router to the
+controller.\\
+Wildcard matching can be used to bypass some tables.\\
+There are ways to look at the meter reading of how many bytes
+are received and such statistics.\\
+Firefox : downthemall option for faster download due to parallelization.\\
+Similarly there are multiple connections between the controller and the
+switch.\\
+Controller caches data of PACKET\_IN and uses it later. There
+is a cookie along with that packet.\\
+
+Further versions of Open Flow also had mechanisms to
+notify the controller and ask which rules to evict.
+An atomic bundle mechanism was also developed where
+we either execute all the actions within or none of them.\\
+
+Networks supporting tenants.\\
+One tenant using 10.* and another also wants to use 10.* .
+How to implement something like this.\\
+
+Look at all possible header space. In flow visor,
+you can split your header space into multiple slices.
+We take some slices and the remaining is considered the master slice.\\
+\begin{itemize}
+\item Policy language to map flows to slices.
+\item Resource can be sliced in terms of BW, Topology, Device CPU,
+Flow table entries and so on.
+\item Can operate on deplayed on networks. The production
+network can be a testbed.
+\item Slices work on different types of services.
+\item We can have multiple controllers and have each controller correspond to
+one slice.
+\end{itemize}
+The controller thinks the flow visor is the router and router thinks
+of the flow visor as the controller. The individual controllers
+are aware that they are part of the slice network though.\\
+
+Flow visor controls the controllers and ensure that they are mutually
+exclusive. A new controller can be added while the other
+controllers are notified. There might be multiple controllers
+implementing the same slice which the flow visor will manage.\\
+You can specify a virtual topology which would be embedded on a physical
+topology. This can be different. The mapping would end up being
+complicated. We can also specify the parameters for the topology.\\
+
+Virtual links can be made up of multiple physical links.
+There is a possibility of same address space being shared across
+different virtual topologies. Different topologies may be
+implemented/controlled by different controllers. The OVX
+is the interface between the controllers and the switches.
 
 \end{document}

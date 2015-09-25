@@ -22,8 +22,8 @@ unsigned int A(unsigned int m, unsigned int n) {
 int main() {
     unsigned int m, n;
     printf("Type two positive integers as input :\n");
-    scanf("%d%d", &m, &n);
+    //scanf("%d%d", &m, &n);
     count = 0;
-    printf("%d\n", A(m, n));
+    printf("%d\n", A(2, 2));
     printf("%d\n", count);
 }

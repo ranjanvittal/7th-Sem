@@ -125,6 +125,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         Boolean _bool;
         Vector<Integer> _array;
         ClassObject _object;
+        public Value() {_int = 0; _bool = false;}
         public Value get(String field, String type) {
             return _object.get(field, type);
         }
