@@ -1,0 +1,6 @@
+*.o
+*.dylib
+*.po
+*.dep
+*.deppo
+*.swp
