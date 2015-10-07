@@ -387,6 +387,15 @@ Virtual links can be made up of multiple physical links.
 There is a possibility of same address space being shared across
 different virtual topologies. Different topologies may be
 implemented/controlled by different controllers. The OVX
-is the interface between the controllers and the switches.
+is the interface between the controllers and the switches.\\
 
+For mice flows we require less latency and bandwidth can be
+compromised, while it is the reverse for elephant flows.
+Fat tree means more connections to the higher level switches.
+The hierarchy is Edge(or Top of the rack) switch to aggregation switch to core
+switch.\\
+
+Over subscription could be an issue if all children keep producing to their
+best which might end up creating a problem. These are between the
+racks in the servers.
 \end{document}

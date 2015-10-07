@@ -1,0 +1,9 @@
+while G != φ and ¬ failure do
+1 Choose and remove an equation e from G. Say eσ is (s = t).
+2 If s and t are variables, or s and t are both Int then continue.
+3 If s = s1 → s2 and t = t1 → t2, then G = G∪ {s1 = t1,s2 = t2}.
+4 If (s = Int and t is an arrow type) or vice versa then failure = true.
+5 If s is a variable that does not occur in t, then σ = σ o [s := t].
+6 If t is a variable that does not occur in s, then σ = σ o [t := s].
+7 If s != t and either s is a variable that occurs in t or vice versa then
+failure = true.
