@@ -1,5 +1,4 @@
-(let
-    ((x 5)
-    (y 3))
+(letrec
+    ((x (lambda (q) 5)))
     (x (x 2 3))
 )

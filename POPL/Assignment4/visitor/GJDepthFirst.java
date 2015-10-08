@@ -21,6 +21,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     Type intType = new IntType();
     Type voidType = new VoidType();
     Type setType = new SetType();
+    Type final_expression_type;
     boolean first_pass = false;
     boolean in_let_rec = false;
     Set<Integer> gen = new HashSet<Integer>();
@@ -38,10 +39,6 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         return solver.addConstraint(t1, t2);
     }
 
-    boolean not_done(Type t1, Type t2) {
-        if(s_set.containsKey(t1) && t_set.containsKey(t2)
-            || s_set.containsKey(t2)
-    }
 
     class Type {
         boolean is_int;
@@ -152,7 +149,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         }
 
         public void print() {
-            System.out.print(" Set!");
+            System.out.print(" tx");
         }
 
         public Type replace(Type t1, Type t2) {
@@ -273,8 +270,6 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     }
 
     class Constraint {
-        static Set<Type> s_set;
-        static Set<Type> t_se
         Type s;
         Type t;
         public Constraint(Type s, Type t) {this.s = s;this.t = t;}
@@ -286,10 +281,89 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
 
     class Unification {
         Hashtable<Type, Type> unification;
+        Hashtable<Type, Vector<Type> > unprocessed_equals;
+        Hashtable<Type, Vector<Type> > equals;
+        Hashtable<Type, Type> renaming;
         public Unification() {
             unification = new Hashtable<Type, Type>();
+            unprocessed_equals = new Hashtable<Type, Vector<Type> >();
+            equals = new Hashtable<Type, Vector<Type> >();
+            renaming = new Hashtable<Type, Type>();
         }
 
+        public void process_equals(Type t1) {
+            Vector<Type> v = equals.remove(t1);
+            Set<Type> s;
+            if(v == null)
+                return;
+            else {
+                s = new HashSet<Type>();
+                s.add(t1);
+                Vector< Vector<Type> >v2 = new Vector< Vector <Type> >();
+                v2.add(v);
+                while(v2.size() > 0) {
+                    int i = 0;
+                    Vector<Type> v1 = v2.remove(0);
+                    while(i < v1.size()) {
+                        Type t3 = v1.get(i);
+                        if(!s.contains(t3)) {
+                            s.add(t3);
+                            renaming.put(t3, t1);
+                            Vector<Type> v7 = equals.remove(t3);
+                            v2.add(v7);
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
+
+        public void process_all_equals() {
+            Enumeration<Type> en = equals.keys();
+            while(en.hasMoreElements())
+                process_equals(en.nextElement());
+            en = unification.keys();
+            while(en.hasMoreElements()) {
+                Type t = en.nextElement();
+                Type r = unification.get(t);
+                Enumeration<Type> en2 = renaming.keys();
+                while(en2.hasMoreElements()) {
+                    Type t1 = en2.nextElement();
+                    Type t2 = renaming.get(t1);
+                    r = r.replace(t1, t2);
+                }
+                unification.put(t, r);
+            }
+        }
+
+        public void update_unprocessed(Type t1, Type t2) {
+
+            Vector<Type> v = unprocessed_equals.remove(t1);
+
+            Set<Type> s;
+            if(v == null)
+                return;
+            else {
+                s = new HashSet<Type>();
+                Vector< Vector<Type> > v2 = new Vector< Vector <Type> >();
+                s.add(t1);
+                v2.add(v);
+                while(v2.size() > 0) {
+                    int i = 0;
+                    Vector<Type> v1 = v2.remove(0);
+                    while(i < v1.size()) {
+                        Type t3 = v1.get(i);
+                        if(!s.contains(t3)) {
+                            s.add(t3);
+                            unification.put(t3, t2);
+                            Vector<Type> v7 = unprocessed_equals.remove(t3);
+                            v2.add(v7);
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
         public boolean compose_simple(Type t1, Type t2) {
             if(unification.containsKey(t1)) {
                 Type t3 = unification.get(t1);
@@ -298,6 +372,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
             }
             else {
                 unification.put(t1, t2);
+                update_unprocessed(t1, t2);
             }
             return true;
         }
@@ -305,6 +380,25 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         public boolean compose_templates(Type t1, Type t2) {
             Type t3 = unification.get(t1);
             Type t4 = unification.get(t2);
+            // t1.print();
+            // t2.print();
+            // System.out.println("");
+            if(equals.containsKey(t1))
+                equals.get(t1).add(t2);
+            else {
+                Vector<Type> t5 = new Vector<Type>();
+                t5.add(t2);
+                equals.put(t1, t5);
+            }
+            if(equals.containsKey(t2))
+                equals.get(t2).add(t1);
+            else {
+                Vector<Type> t5 = new Vector<Type>();
+                t5.add(t1);
+                equals.put(t2, t5);
+            }
+            // System.out.println(equals.get(t1));
+            // System.out.println(equals.get(t2));
             if(t3 != null && t4 != null) {
                 if(t3.is_func && t4.is_func) {
                     addConstraint(t3.argument_type, t4.argument_type);
@@ -315,13 +409,32 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
                     return t3 == t4;
                 return false;
             }
-            if(t3 != null && t4 == null)
+            if(t3 != null && t4 == null) {
                 unification.put(t2, t3);
-            if(t4 != null && t3 == null)
+                update_unprocessed(t2, t3);
+            }
+            if(t4 != null && t3 == null) {
                 unification.put(t1, t4);
+                update_unprocessed(t1, t4);
+            }
 
-            if(t3 == null && t4 == null)
-                //Fill
+            if(t3 == null && t4 == null) {
+                if(unprocessed_equals.containsKey(t1))
+                    unprocessed_equals.get(t1).add(t2);
+                else {
+                    Vector<Type> t5 = new Vector<Type>();
+                    t5.add(t2);
+                    unprocessed_equals.put(t1, t5);
+                }
+                if(unprocessed_equals.containsKey(t2))
+                    unprocessed_equals.get(t2).add(t1);
+                else {
+                    Vector<Type> t5 = new Vector<Type>();
+                    t5.add(t1);
+                    unprocessed_equals.put(t2, t5);
+                }
+            }
+            return true;
         }
 
         public boolean compose_functions(Type t1, Type t2) {
@@ -332,6 +445,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
                 Type t3 = unification.get(t1);
                 if(t3 == null) {
                     unification.put(t1, t2);
+                    update_unprocessed(t1, t2);
                 }
                 else {
                     if(t3.is_func) {
@@ -349,37 +463,99 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
 
         public void print() {
             int i = 0;
-            while( i < unification.size()) {
-                Constraint c = unification.get(i);
-                Type s = c.s;
-                Type t = c.t;
-                s.print();
+            Enumeration<Type> e = unification.keys();
+            while(e.hasMoreElements()) {
+                Type t1 = e.nextElement();
+                Type t2 = unification.get(t1);
+                t1.print();
                 System.out.print(" = ");
-                t.print();
+                t2.print();
                 System.out.println("");
-                i = i+1;
             }
+        }
+
+        public void check_tinker(Type t2, Set<Type> danger) {
+            if(danger.contains(t2))
+                cry();
+            danger.add(t2);
+            if(t2.is_template) {
+                Type t3 = unification.get(t2);
+                if(t3 != null)
+                    check_tinker(t3, danger);
+            }
+            else if(t2.is_func){
+                Set<Type> danger1;
+                Set<Type> danger2;
+                danger1 = new HashSet<Type>();
+                danger2 = new HashSet<Type>();
+                danger1.addAll(danger);
+                danger2.addAll(danger);
+                check_tinker(t2.argument_type, danger1);
+                check_tinker(t2.return_type, danger2);
+            }
+        }
+
+        public void final_tinker(Type t2) {
+            if(!t2.is_func && !t2.is_template)
+                t2.print();
+            else if(t2.is_template) {
+                Type t3 = unification.get(t2);
+                if(t3 == null)
+                    t2.print();
+                else
+                    final_tinker(t3);
+            }
+            else {
+                System.out.print("(");
+                final_tinker(t2.argument_type);
+                System.out.print(" -> (");
+                final_tinker(t2.return_type);
+                System.out.print(" ) )");
+            }
+        }
+
+        public void finish() {
+            Enumeration<Type> en = unification.keys();
+            while(en.hasMoreElements()) {
+                Type t1 = en.nextElement();
+                Type t2 = unification.get(t1);
+                Set<Type> s = new HashSet<Type>();
+                s.add(t1);
+                check_tinker(t2, s);
+            }
+            final_tinker(final_expression_type);
+            System.out.println("");
         }
     }
     class Solver {
         Vector<Constraint> constraints;
         Vector<Constraint> all_constraints;
+        Unification sigma;
         public Solver() {
             constraints = new Vector<Constraint>();
-            all_constraints = constraints;
+            all_constraints = new Vector<Constraint>();
         }
         public boolean addConstraint(Type t1, Type t2) {
+            if(t1 == null || t2 == null)
+                cry();
+            if(t1 == t2)
+                return true;
+            // t1.print();
+            // System.out.print( " = ");
+            // t2.print();
+            // System.out.println("");
             boolean fl = is_constraint_present(t1, t2);
             if(!fl) {
                 Constraint c = new Constraint(t1, t2);
                 constraints.add(c);
                 all_constraints.add(c);
             }
+
             return !fl;
         }
 
         public boolean is_constraint_present(Type t1, Type t2) {
-            for(i = 0; i < all_constraints.size(); i++) {
+            for(int i = 0; i < all_constraints.size(); i++) {
                 Constraint c = all_constraints.get(i);
                 if((c.s == t1 && c.t == t2) ||
                     (c.s == t2 && c.t == t1)
@@ -388,49 +564,8 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
             }
             return false;
         }
-        public void Solve() {
-            print("Started Solving");
-            boolean failure = false;
-            all_constraints = new Vector<Constraint>(constraints);
-            Unification sigma = new Unification();
-            while(constraints.size() > 0 && !failure) {
-                Constraint c = constraints.remove(0);
-                Type s = c.s;
-                Type t = c.t;
-                if(!s.is_template && !s.is_func) {
-                    if(!t.is_template && !t.is_func) {
-                      failure = !(s == t);
-                    }
-                    else if(t.is_func)
-                        failure = true;
-                    else {
-                        failure = !sigma.compose_simple(t, s);
-                    }
-                    continue;
-                }
 
-                else if(!t.is_template && !t.is_func) {
-                    if(s.is_func)
-                        failure = true;
-                    else {failure = !sigma.compose_simple(s, t);}
-                    continue;
-                }
-
-                else if(s.is_template && t.is_template) {
-                    sigma.compose_templates(s, t);
-                }
-
-                else if(s.is_func && t.is_func) {
-                    addConstraint(s.argument_type, t.argument_type);
-                    addConstraint(s.return_type, t.return_type);
-                }
-
-                else {
-                    if(s.is_template)
-                        failure = !sigma.compose_functions(s, t);
-                    else if(t.is_template)
-                        failure = !sigma.compose_functions(t, s);
-                }
+        public boolean processConstraints() {
             //1 Choose and remove an equation e from G. Say eσ is (s = t).
             //2 If s and t are variables, or s and t are both Int then continue.
             //3 If s = s1 → s2 and t = t1 → t2, then G = G∪ {s1 = t1,s2 = t2}.
@@ -439,11 +574,58 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
             //6 If t is a variable that does not occur in s, then σ = σ o [t := s].
             //7 If s != t and either s is a variable that occurs in t or vice versa then
             //failure = true.
+            Constraint c = constraints.remove(0);
+            Type s = c.s;
+            Type t = c.t;
+            boolean failure = false;
+            if(s == null || t == null)
+                cry();
+            if(!s.is_template && !s.is_func) {
+                if(!t.is_template && !t.is_func) {
+                  failure = !(s == t);
+                }
+                else if(t.is_func)
+                    failure = true;
+                else {
+                    failure = !sigma.compose_simple(t, s);
+                }
             }
+
+            else if(!t.is_template && !t.is_func) {
+                if(s.is_func)
+                    failure = true;
+                else {failure = !sigma.compose_simple(s, t);}
+            }
+
+            else if(s.is_template && t.is_template) {
+                failure = !sigma.compose_templates(s, t);
+            }
+
+            else if(s.is_func && t.is_func) {
+                addConstraint(s.argument_type, t.argument_type);
+                addConstraint(s.return_type, t.return_type);
+            }
+
+            else {
+                if(s.is_template)
+                    failure = !sigma.compose_functions(s, t);
+                else if(t.is_template)
+                    failure = !sigma.compose_functions(t, s);
+            }
+            return failure;
+        }
+        public void Solve() {
+            //print("Started Solving");
+            boolean failure = false;
+            sigma = new Unification();
+            while(constraints.size() > 0 && !failure) {
+                failure = processConstraints();
+            }
+            sigma.process_all_equals();
             if(failure)
                 cry();
             else
-                sigma.print();
+                sigma.finish();
         }
     }
 
@@ -503,8 +685,8 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(Goal n, A argu) {
         R _ret=null;
         current_env = new Environment();
-        Type t = new TemplateType();
-        addConstraint(t, (Type) n.f0.accept(this, argu));
+        final_expression_type = new TemplateType();
+        addConstraint(final_expression_type, (Type) n.f0.accept(this, argu));
         n.f1.accept(this, argu);
         solver.Solve();
         return _ret;
@@ -704,6 +886,8 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
 
         current_env.extend(entries);
         Type t3 = (Type) n.f5.accept(this, argu);
+        // t3.print();
+        // print("");
         addConstraint(running_type, t3);
         current_env.rollBack();
         Type t1 = new FunctionType(argument_type, return_type);
@@ -722,29 +906,33 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         R _ret=null;
         n.f0.accept(this, argu);
         Type t = (Type) n.f1.accept(this, argu);
+        Type return_type;
+        Type argument_type;
+        Type running_type;
         Enumeration<Node> e = n.f2.elements();
         Type current_type = t;
         if(!current_type.is_func) {
-            if(size == 0) {
+            if(n.f2.size() == 0) {
                 return_type = new TemplateType();
                 addConstraint(t, new FunctionType(voidType, return_type));
                 current_type = return_type;
             }
             while(e.hasMoreElements()) {
                 Type t1 = (Type) e.nextElement().accept(this, argu);
-                Type argument_type = new TemplateType();
-                Type return_type = new TemplateType();
-                addConstraint(current_type, new FunctionType(argument_type, return_type);
+                argument_type = new TemplateType();
+                return_type = new TemplateType();
+                addConstraint(current_type, new FunctionType(argument_type, return_type));
                 addConstraint(argument_type, t1);
                 current_type = return_type;
             }
 
         }
         else {
-            if(size == 0)
+            if(n.f2.size() == 0) {
                 current_type = current_type.return_type;
+            }
             while(e.hasMoreElements()) {
-                Type t1 = e.nextElement().accept(this, argu);
+                Type t1 = (Type) e.nextElement().accept(this, argu);
                 addConstraint(current_type.argument_type, t1);
                 current_type = current_type.return_type;
             }
