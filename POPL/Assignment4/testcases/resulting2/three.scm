@@ -1,0 +1,5 @@
+( lambda ( arg1 )
+      ( lambda ( arg2 )
+            (lambda (arg3)
+			(arg1 (arg2 arg3)))))
+(( t9 -> ( t11 ) ) -> ((( t8 -> ( t9 ) ) -> (( t8 -> ( t11 ) ) ) ) ) )
