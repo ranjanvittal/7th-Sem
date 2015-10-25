@@ -85,8 +85,35 @@ class RequiredParameters {
         this.branch_rs_size = branch_rs_size;
         this.halt_rs_size = halt_rs_size;
         this.data_cache_latency = data_cache_latency;
-    }
 
+
+    }
+    public void __print(String a, String b) {
+        System.out.println(a + " : " + b);
+    }
+    public void __print(String a, Integer b) {
+        System.out.println(a + " : " + Integer.toString(b));
+    }
+    public void print() {
+        __print("file ", file);
+        __print("width ", width);
+        __print("reorder_buffer_size ", reorder_buffer_size);
+        __print("reservation_station_size ", reservation_station_size);
+        __print("store_buffer_size ", store_buffer_size);
+        __print("add_latency ", add_latency);
+        __print("sub_latency ", sub_latency);
+        __print("mul_latency ", mul_latency);
+        __print("load_latency ", load_latency);
+        __print("store_latency ", store_latency);
+        __print("jump_latency ", jump_latency);
+        __print("branch_latency ", branch_latency);
+        __print("halt_latency ", halt_latency);
+        __print("alu_rs_size ", alu_rs_size);
+        __print("load_store_rs_size ", load_store_rs_size);
+        __print("branch_rs_size ", branch_rs_size);
+        __print("halt_rs_size ", halt_rs_size);
+        __print("data_cache_latency ", data_cache_latency);
+    }
     public void set_code(Hashtable<Integer, String> code) {
         this.code = code;
     }
@@ -154,7 +181,7 @@ class PipelineSimulator {
 
     public void process_args(String[] args) {
         String file = args[0];
-        Integer width = 10;
+        Integer width = 2;
         Integer reorder_buffer_size = 1;
         Integer reservation_station_size = 1;
         Integer store_buffer_size = 10;
@@ -174,26 +201,27 @@ class PipelineSimulator {
 
 
         for(int i = 1; i < args.length; i += 3) {
-            Parameter p = Parameter.valueOf(args[i]);
-            switch(p) {
-                case width : { width = Integer.parseInt(args[i+2]); break;}
-                case reorder_buffer_size : { reorder_buffer_size = Integer.parseInt(args[i+2]); break;}
-                case store_buffer_size : { store_buffer_size = Integer.parseInt(args[i+2]); break;}
-                case add_latency : { add_latency = Integer.parseInt(args[i+2]); break;}
-                case sub_latency : { sub_latency = Integer.parseInt(args[i+2]); break;}
-                case mul_latency : { mul_latency = Integer.parseInt(args[i+2]); break;}
-                case load_latency : {load_latency = Integer.parseInt(args[i+2]); break;}
-                case store_latency : {store_latency = Integer.parseInt(args[i+2]); break;}
-                case jump_latency : {jump_latency = Integer.parseInt(args[i+2]); break;}
-                case branch_latency : {branch_latency = Integer.parseInt(args[i+2]); break;}
-                case halt_latency : {halt_latency = Integer.parseInt(args[i+2]); break;}
-                case alu_rs_size : { alu_rs_size = Integer.parseInt(args[i+2]); break;}
-                case load_store_rs_size : { load_store_rs_size = Integer.parseInt(args[i+2]); break;}
-                case branch_rs_size : { branch_rs_size = Integer.parseInt(args[i+2]); break;}
-                case halt_rs_size : { halt_rs_size = Integer.parseInt(args[i+2]); break;}
-                case data_cache_latency : {data_cache_latency = Integer.parseInt(args[i+2]); break;}
+                String p = args[i];
+                System.out.println(p);
+                switch(p) {
+                    case "width" : { width = Integer.parseInt(args[i+2]); break;}
+                    case "reorder_buffer_size" : { reorder_buffer_size = Integer.parseInt(args[i+2]); break;}
+                    case "store_buffer_size" : { store_buffer_size = Integer.parseInt(args[i+2]); break;}
+                    case "add_latency" : { add_latency = Integer.parseInt(args[i+2]); break;}
+                    case "sub_latency" : { sub_latency = Integer.parseInt(args[i+2]); break;}
+                    case "mul_latency" : { mul_latency = Integer.parseInt(args[i+2]); break;}
+                    case "load_latency" : {load_latency = Integer.parseInt(args[i+2]); break;}
+                    case "store_latency" : {store_latency = Integer.parseInt(args[i+2]); break;}
+                    case "jump_latency" : {jump_latency = Integer.parseInt(args[i+2]); break;}
+                    case "branch_latency" : {branch_latency = Integer.parseInt(args[i+2]); break;}
+                    case "halt_latency" : {halt_latency = Integer.parseInt(args[i+2]); break;}
+                    case "alu_rs_size" : { alu_rs_size = Integer.parseInt(args[i+2]); break;}
+                    case "load_store_rs_size" : { load_store_rs_size = Integer.parseInt(args[i+2]); break;}
+                    case "branch_rs_size" : { branch_rs_size = Integer.parseInt(args[i+2]); break;}
+                    case "halt_rs_size" : { halt_rs_size = Integer.parseInt(args[i+2]); break;}
+                    case "data_cache_latency" : {data_cache_latency = Integer.parseInt(args[i+2]); break;}
+                }
             }
-        }
         required_parameters = new RequiredParameters(
             file, width, reorder_buffer_size, reservation_station_size,
             store_buffer_size, add_latency,
@@ -202,6 +230,7 @@ class PipelineSimulator {
             alu_rs_size, load_store_rs_size, branch_rs_size,
             halt_rs_size, data_cache_latency
         );
+        required_parameters.print();
     }
 }
 
@@ -282,10 +311,6 @@ class Simulator {
 
 
     Instruction dummy;
-    public Instruction alu_finished;
-    public Instruction load_store_finished;
-    public Instruction branch_finished;
-    public Instruction halt_finished;
     Vector<Instruction> finished;
     ReservationStationExecutor reservation_station;
     boolean can_go_ahead;
@@ -465,10 +490,7 @@ class Simulator {
         load_store_rs = new ReservationStation(load_store_rs_size, first_renamed_load_store);
         branch_rs = new ReservationStation(branch_rs_size, first_renamed_branch);
         halt_rs = new ReservationStation(halt_rs_size, first_renamed_halt);
-        alu_finished = null;
-        load_store_finished = null;
-        branch_finished = null;
-        halt_finished = null;
+
         can_go_ahead = true;
         int rename_register_size = (
             alu_rs_size + load_store_rs_size +
@@ -643,7 +665,9 @@ class Simulator {
                                 instruction_fetch_results_occupied[j] = false;
                             }
                         }
-                        // Flushing all instructions after jump
+                        instruction.pc = instruction_fetch_pc[i];
+                        instruction.jump();
+                        branch_stall = false;
                     }
                     if(code.equals("110")) {
                         reg2 = instruction_code.substring(4, 8);
@@ -970,6 +994,7 @@ class Simulator {
         int latency;
         int pc_changed;
         boolean gen = false;
+        public void jump() {}
         public boolean execute() {return true;}
         public void write_back() {finished = true;}
         public boolean result_got() {return latency < current_stage;}
@@ -1222,19 +1247,22 @@ class Simulator {
             current_stage = 0;
             //__print(print());
         }
+
+        public void jump() {
+            pc1 = pc + (offset*2) ;
+            pc_changed = pc1;
+            instruction_fetcher.reset(pc1);
+            instruction = instruction1 = instruction2 = dummy;
+            // Modify as per requirement.
+            branch_stall = false;
+            first_stall = true;
+        }
         public boolean execute() {
             if(current_stage < latency) {
                 current_stage++;
                 return false;
             }
             else {
-                pc1 = pc + (offset*2) ;
-                pc_changed = pc1;
-                instruction_fetcher.reset(pc1);
-                instruction = instruction1 = instruction2 = dummy;
-                // Modify as per requirement.
-                branch_stall = false;
-                first_stall = true;
                 current_stage++;
                 return true;
             }
