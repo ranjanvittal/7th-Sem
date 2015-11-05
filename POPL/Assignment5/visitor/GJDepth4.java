@@ -10,129 +10,29 @@ import java.util.*;
  * Provides default methods which visit each node in the tree in depth-first
  * order.  Your visitors may extend this class.
  */
-public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
+public class GJDepth4<R,A> extends GJDepthFirst<R,A> {
     //
     // Auto class visitors--probably don't need to be overridden.
     //
 
-    Hashtable<String, ClassInfo> globalClassInfo;
     String className;
-    ClassInfo classInfo;
+
     boolean inClass;
+    String variableString;
+    String overall = "";
+    String middleString;
 
-    class MethodType {
-        String type;
-        MethodDeclaration md;
-        public MethodType(String type, MethodDeclaration md) {
-            this.type = type;
-            this.md = md;
-        }
+    public void ptv(String s) {
+        variableString += s + "\n";
     }
 
-    class ClassInfo extends Object {
-        Hashtable<String, String> fields;
-        Hashtable<String, MethodDeclaration> methods;
-        String parent;
-        String type;
-        public ClassInfo() {
-            fields = new Hashtable<String, String>();
-            methods = new Hashtable<String, MethodDeclaration>();
-        }
-
-        public void addField(String field, String type) {
-            fields.put(field, type);
-        }
-
-        public MethodType getMethod(String method) {
-            if(methods.containsKey(method))
-                return new MethodType(type, methods.get(method));
-            return globalClassInfo.get(parent).getMethod(method);
-        }
-
-        public String type(String variable) {
-        	if(variable.equals("runner"))
-        		return "Runner";
-            if(fields.containsKey(variable))
-                return fields.get(variable);
-          return globalClassInfo.get(parent).type(variable);
-        }
+    public void print_middle(String s) {
+        middleString += s + "\n";
     }
 
-    // class ClassObject extends Object {
-    //     Hashtable<String, Value> fields;
-    //     Hashtable<String, String> types;
-    //     String type;
-    //     ClassObject parent;
-
-    //     public ClassObject() {
-    //         fields = new Hashtable<String, Value>();
-    //         types = new Hashtable<String, String>();
-    //     }
-
-    //     public Value get(String field, String type) {
-    //         return get(field, type, false);
-    //     }
-
-    //     public Value get(String field, String type, boolean fl) {
-    //         if(type == this.type)
-    //             fl = true;
-    //         if(fl && fields.containsKey(field)) {
-    //             return fields.get(field);
-    //         }
-    //         return parent.get(field, type, fl);
-    //     }
-    //     public String getType(String field, String type) {
-    //         return getType(field, type, false);
-    //     }
-
-    //     public String getType(String field, String type, boolean fl) {
-    //         if(type == this.type)
-    //             fl = true;
-    //         if(fl && types.containsKey(field)) {
-    //             return types.get(field);
-    //         }
-    //         return parent.getType(field, type, fl);
-    //     }
-
-    //     public void assign(String field, Value value, String type) {
-    //         assign(field, value, type, false);
-    //     }
-
-    //     public void assign(String field, Value value, String type, boolean fl) {
-    //         if(type == this.type)
-    //             fl = true;
-    //         if(fl && fields.containsKey(field)) {
-    //             fields.put(field, value);
-    //             return;
-    //         }
-    //         parent.assign(field, value, type, fl);
-    //     }
-
-    //     public MethodType getMethod(String method) {
-    //         return globalClassInfo.get(type).getMethod(method);
-    //     }
-    // }
-
-    // class Value extends Object {
-    //     Integer _int;
-    //     Boolean _bool;
-    //     Vector<Integer> _array;
-    //     ClassObject _object;
-    //     public Value() {_int = 0; _bool = false;}
-    //     public Value get(String field, String type) {
-    //         return _object.get(field, type);
-    //     }
-    //     public void assign(String field, Value val, String type) {
-    //         _object.assign(field, val, type);
-    //     }
-    //     public MethodType getMethod(String method) {
-    //         return _object.getMethod(method);
-    //     }
-    //     public String getType(String field, String type) {
-    //         return _object.getType(field, type);
-    //     }
-    // }
-
+    public void pto(String s) {
+        overall += s;
+    }
 
     public R visit(NodeList n, A argu) {
         R _ret=null;
@@ -188,11 +88,11 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(Goal n, A argu) {
         R _ret=null;
-        globalClassInfo = new Hashtable<String, ClassInfo>();
         n.f0.accept(this, argu);
         n.f1.accept(this, argu);
         n.f2.accept(this, argu);
-        return (R) globalClassInfo;
+        //System.out.println(overall);
+        return (R) overall;
     }
 
     /**
@@ -226,31 +126,25 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(MainClass n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
+        pto("class ");
         n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
-        n.f4.accept(this, argu);
-        n.f5.accept(this, argu);
-        n.f6.accept(this, argu);
-        n.f7.accept(this, argu);
-        n.f8.accept(this, argu);
-        n.f9.accept(this, argu);
-        n.f10.accept(this, argu);
-        n.f11.accept(this, argu);
-        n.f12.accept(this, argu);
-        n.f13.accept(this, argu);
-        n.f14.accept(this, argu);
-        n.f15.accept(this, argu);
-        n.f16.accept(this, argu);
-        n.f17.accept(this, argu);
-        n.f18.accept(this, argu);
-        n.f19.accept(this, argu);
-        n.f20.accept(this, argu);
+        pto(n.f1.f0.toString());
+        pto(" {");
+        pto("public static void main(String[] ");
+        String id = (String) n.f11.accept(this, argu);
+        pto(id);
+        pto(") {\n");
+        pto("new ");
+        id = (String) n.f15.accept(this, argu);
+        pto(id);
+        pto("().");
+        id = (String) n.f19.accept(this, argu);
+        pto(id);
+        pto("(");
         n.f21.accept(this, argu);
-        n.f22.accept(this, argu);
-        n.f23.accept(this, argu);
-        n.f24.accept(this, argu);
-        n.f25.accept(this, argu);
+        pto(");\n");
+        pto("}\n");
+        pto("}");
         return _ret;
     }
 
@@ -276,17 +170,19 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         R _ret=null;
         n.f0.accept(this, argu);
         className = (String) n.f1.accept(this, argu);
-        classInfo = new ClassInfo();
-        classInfo.type = className;
-        globalClassInfo.put(className, classInfo);
+        // classInfo = new ClassInfo();
+        // classInfo.type = className;
+        // globalClassInfo.put(className, classInfo);
 
         n.f2.accept(this, argu);
+        pto("class " + className + " {\n");
         inClass = true;
         n.f3.accept(this, argu);
         inClass = false;
 
         n.f4.accept(this, argu);
         n.f5.accept(this, argu);
+        pto("}\n");
         return _ret;
     }
 
@@ -306,16 +202,13 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         className = (String) n.f1.accept(this, argu);
         n.f2.accept(this, argu);
         String parent = (String) n.f3.accept(this, argu);
-        classInfo = new ClassInfo();
-        classInfo.type = className;
-        classInfo.parent = parent;
-        globalClassInfo.put(className, classInfo);
-        n.f4.accept(this, argu);
+        pto("class " + className + " extends " + parent + " {\n");
         inClass = true;
         n.f5.accept(this, argu);
         inClass = false;
         n.f6.accept(this, argu);
         n.f7.accept(this, argu);
+        pto("}\n");
         return _ret;
     }
 
@@ -329,7 +222,20 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         if(inClass) {
             String type = (String) n.f0.accept(this, argu);
             String id = (String) n.f1.accept(this, argu);
-            classInfo.addField(id, type);
+            pto(type + " " + id + ";");
+        }
+        else {
+            String type = (String) n.f0.accept(this, argu);
+            String id = (String) n.f1.accept(this, argu);
+            switch(type) {
+                case "int" : {print_middle(id + " = 0;");break;}
+                case "int[]" : {print_middle(id + " = new int[1];"); break;}
+                case "boolean" : {print_middle(id + " = false;"); break;}
+                default : {
+                    print_middle(id + " = new " + type + "();");
+                }
+            }
+            ptv(type + " " + id + ";");
         }
         return _ret;
     }
@@ -351,14 +257,15 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
         n.f0.accept(this, argu);
         n.f1.accept(this, argu);
         String method = (String) n.f2.accept(this, argu);
-        classInfo.methods.put(method, n);
-        n.f3.accept(this, argu);
+        pto("public void " + method + "(");
         n.f4.accept(this, argu);
-        n.f5.accept(this, argu);
-        n.f6.accept(this, argu);
+        pto(") {\n");
+        variableString = "";
+        middleString = "";
         n.f7.accept(this, argu);
+        pto(variableString + middleString + "\n");
         n.f8.accept(this, argu);
-        n.f9.accept(this, argu);
+        pto("}\n");
         return _ret;
     }
 
@@ -379,8 +286,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(FormalParameter n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        String type = (String) n.f0.accept(this, argu);
+        String id = (String) n.f1.accept(this, argu);
+        pto(type + " " + id);
         return _ret;
     }
 
@@ -391,6 +299,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(FormalParameterRest n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
+        pto(", ");
         n.f1.accept(this, argu);
         return _ret;
     }
@@ -453,9 +362,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(Block n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("{\n");
         n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
+        pto("}\n");
         return _ret;
     }
 
@@ -468,9 +377,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(AssignmentStatement n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" = ");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        pto(";\n");
         return _ret;
     }
 
@@ -485,13 +394,12 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(ArrayAssignmentStatement n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        String s = (String) n.f0.accept(this, argu);
+        pto(s + "[");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
-        n.f4.accept(this, argu);
+        pto("] = ");
         n.f5.accept(this, argu);
-        n.f6.accept(this, argu);
+        pto(";\n");
         return _ret;
     }
 
@@ -506,12 +414,11 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(IfStatement n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto("if(");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        pto(")\n");
         n.f4.accept(this, argu);
-        n.f5.accept(this, argu);
+        pto("else\n");
         n.f6.accept(this, argu);
         return _ret;
     }
@@ -525,15 +432,14 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(WhileStatement n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto("while(");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        pto(")\n");
         n.f4.accept(this, argu);
         return _ret;
     }
 
-    /**
+   /**
      * f0 -> "System.out.println"
      * f1 -> "("
      * f2 -> Expression()
@@ -542,11 +448,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(PrintStatement n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto("System.out.println(");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
-        n.f4.accept(this, argu);
+        pto(");\n");
         return _ret;
     }
 
@@ -561,13 +465,12 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(MessageSendStatement n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        String id = (String) n.f0.accept(this, argu);
+        pto(id + ".");
+        id = (String) n.f2.accept(this, argu);
+        pto(id + "(");
         n.f4.accept(this, argu);
-        n.f5.accept(this, argu);
-        n.f6.accept(this, argu);
+        pto(");\n");
         return _ret;
     }
 
@@ -594,7 +497,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(AndExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" & ");
         n.f2.accept(this, argu);
         return _ret;
     }
@@ -607,7 +510,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(CompareExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" < ");
         n.f2.accept(this, argu);
         return _ret;
     }
@@ -620,7 +523,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(PlusExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" + ");
         n.f2.accept(this, argu);
         return _ret;
     }
@@ -633,7 +536,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(MinusExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" - ");
         n.f2.accept(this, argu);
         return _ret;
     }
@@ -646,7 +549,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(TimesExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto(" * ");
         n.f2.accept(this, argu);
         return _ret;
     }
@@ -660,9 +563,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(ArrayLookup n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
+        pto("[");
         n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        pto("]");
         return _ret;
     }
 
@@ -683,7 +586,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(ExpressionRest n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto(", ");
         n.f1.accept(this, argu);
         return _ret;
     }
@@ -710,7 +613,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(IntegerLiteral n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto(n.f0.toString());
         return _ret;
     }
 
@@ -719,7 +622,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(TrueLiteral n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("true");
         return _ret;
     }
 
@@ -728,7 +631,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(FalseLiteral n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("false");
         return _ret;
     }
 
@@ -736,7 +639,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      * f0 -> <IDENTIFIER>
      */
     public R visit(Identifier n, A argu) {
-        return n.f0.accept(this, argu);
+        String id = n.f0.toString();
+        id = "original_" + id;
+        return (R) id;
     }
 
     /**
@@ -744,7 +649,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(ThisExpression n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("this");
         return _ret;
     }
 
@@ -757,11 +662,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(ArrayAllocationExpression n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
+        pto("new int [");
         n.f3.accept(this, argu);
-        n.f4.accept(this, argu);
+        pto("]");
         return _ret;
     }
 
@@ -774,9 +677,10 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
     public R visit(AllocationExpression n, A argu) {
         R _ret=null;
         n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
-        n.f3.accept(this, argu);
+        pto("new ");
+        String id = (String) n.f1.accept(this, argu);
+        pto(id);
+        pto("()");
         return _ret;
     }
 
@@ -786,7 +690,7 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(NotExpression n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("!");
         n.f1.accept(this, argu);
         return _ret;
     }
@@ -798,9 +702,9 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(BracketExpression n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        pto("(");
         n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
+        pto(")");
         return _ret;
     }
 
@@ -810,7 +714,10 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(VarRef n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
+        String id = (String) n.f0.accept(this, argu);
+        if(n.f0.which == 1) {
+            pto(id);
+        }
         return _ret;
     }
 
@@ -821,10 +728,13 @@ public class GJDepthFirst<R,A> implements GJVisitor<R,A> {
      */
     public R visit(DotExpression n, A argu) {
         R _ret=null;
-        n.f0.accept(this, argu);
-        n.f1.accept(this, argu);
-        n.f2.accept(this, argu);
+        String id1 = (String) n.f0.accept(this, argu);
+        String id2 = (String) n.f2.accept(this, argu);
+        if(n.f2.f0.toString().equals("length"))
+        	id2 = "length";
+        pto(id1 + "." + id2);
         return _ret;
     }
 
 }
+

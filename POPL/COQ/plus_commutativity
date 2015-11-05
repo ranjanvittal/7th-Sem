@@ -1,0 +1,31 @@
+Lemma plus_n_zero: forall n, n = plus n 0.
+Proof.
+induction n.
+simpl.
+reflexivity.
+simpl.
+rewrite <- IHn.
+reflexivity.
+Qed.
+
+Lemma plus_succ: forall m n, S (n + m) = n + (S m).
+intros.
+induction n.
+simpl.
+reflexivity.
+simpl.
+rewrite IHn.
+reflexivity.
+Qed.
+
+
+Theorem plus_comm: forall m n, m + n = n + m.
+Proof.
+intros.
+induction m.
+simpl.
+apply plus_n_zero.
+simpl.
+rewrite -> IHm.
+apply plus_succ.
+Qed.

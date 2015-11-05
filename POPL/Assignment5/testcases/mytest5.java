@@ -9,7 +9,7 @@ class new_mytest5 {
         extra_int result;
         a = new BooleanXor();
         result = new extra_int();
-        a.xor(2097, 1827, result);
+        a.xor(297, 187, result);
         System.out.println(result.first);
     }
 }
